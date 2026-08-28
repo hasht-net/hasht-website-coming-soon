@@ -78,21 +78,21 @@
     .card { max-width: 560px; text-align: center; }
 
     .brand {
-      display: inline-flex; align-items: center; gap: 10px;
+      display: flex; align-items: center; justify-content: center; gap: 10px;
+      width: fit-content; margin: 0 auto 40px;
       font-family: var(--font-display); font-weight: 600;
       font-size: 1.15rem; color: var(--text-bright); letter-spacing: -0.01em;
-      margin-bottom: 40px;
     }
     .brand svg { width: 30px; height: 30px; }
 
     .kicker {
-      display: inline-flex; align-items: center; gap: 8px;
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+      width: fit-content; margin: 0 auto 24px;
       font-size: 0.78rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
       color: var(--brand-bright);
       background: rgba(102, 114, 232, 0.12);
       border: 1px solid rgba(102, 114, 232, 0.3);
       padding: 6px 14px; border-radius: 100px;
-      margin-bottom: 24px;
     }
     .kicker .dot {
       width: 6px; height: 6px; border-radius: 50%; background: var(--accent);
