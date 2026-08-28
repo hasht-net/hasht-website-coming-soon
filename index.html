@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>hasht — coming soon</title>
+  <meta name="description" content="hasht is an open-source, self-hostable chat app. We're building in the open — check back soon." />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48' fill='none'%3E%3Crect width='48' height='48' rx='12' fill='%231c1d21'/%3E%3Cg stroke='%23818cf1' stroke-width='3.4' stroke-linecap='round'%3E%3Cline x1='17' y1='10' x2='13' y2='38'/%3E%3Cline x1='33' y1='10' x2='29' y2='38'/%3E%3Cline x1='9' y1='18' x2='39' y2='18'/%3E%3Cline x1='9' y1='30' x2='39' y2='30'/%3E%3C/g%3E%3Ccircle cx='34.5' cy='13.5' r='3.4' fill='%23ff8a5c'/%3E%3C/svg%3E" />
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,500&family=Manrope:wght@400;500;600;700;800&display=swap');
+
+    :root {
+      --font-display: 'Fraunces', ui-serif, Georgia, serif;
+      --font-ui: 'Manrope', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      --brand: #6672e8;
+      --brand-bright: #818cf1;
+      --brand-dim: #414fd4;
+      --accent: #ff8a5c;
+      --bg-void: #0a0a0c;
+      --bg-raised: #1c1d21;
+      --border: rgba(255, 255, 255, 0.08);
+      --text-bright: #f4f4f6;
+      --text-normal: #d6d7dc;
+      --text-muted: #93949e;
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: var(--bg-void);
+      color: var(--text-normal);
+      font-family: var(--font-ui);
+      min-height: 100svh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow-x: hidden;
+      position: relative;
+      padding: 24px;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 2000;
+      opacity: 0.035;
+      mix-blend-mode: overlay;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+
+    .mesh { position: fixed; inset: 0; z-index: -1; overflow: hidden; pointer-events: none; }
+    .mesh span { position: absolute; border-radius: 50%; filter: blur(90px); opacity: 0.35; animation: drift 26s ease-in-out infinite alternate; }
+    .mesh span:nth-child(1) {
+      width: 640px; height: 640px; top: -220px; left: -160px;
+      background: radial-gradient(circle at 30% 30%, var(--brand), transparent 70%);
+    }
+    .mesh span:nth-child(2) {
+      width: 520px; height: 520px; top: 30%; right: -220px;
+      background: radial-gradient(circle at 60% 40%, var(--accent), transparent 70%);
+      animation-delay: -8s; opacity: 0.22;
+    }
+    .mesh span:nth-child(3) {
+      width: 480px; height: 480px; bottom: -220px; left: 20%;
+      background: radial-gradient(circle at 50% 50%, var(--brand-dim), transparent 70%);
+      animation-delay: -16s; opacity: 0.2;
+    }
+    @keyframes drift {
+      0% { transform: translate(0, 0) scale(1); }
+      100% { transform: translate(40px, 60px) scale(1.08); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .mesh span { animation: none; }
+    }
+
+    .card { max-width: 560px; text-align: center; }
+
+    .brand {
+      display: inline-flex; align-items: center; gap: 10px;
+      font-family: var(--font-display); font-weight: 600;
+      font-size: 1.15rem; color: var(--text-bright); letter-spacing: -0.01em;
+      margin-bottom: 40px;
+    }
+    .brand svg { width: 30px; height: 30px; }
+
+    .kicker {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 0.78rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+      color: var(--brand-bright);
+      background: rgba(102, 114, 232, 0.12);
+      border: 1px solid rgba(102, 114, 232, 0.3);
+      padding: 6px 14px; border-radius: 100px;
+      margin-bottom: 24px;
+    }
+    .kicker .dot {
+      width: 6px; height: 6px; border-radius: 50%; background: var(--accent);
+      box-shadow: 0 0 0 3px rgba(255, 138, 92, 0.25);
+      animation: pulse 1.8s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; } 50% { opacity: 0.4; }
+    }
+
+    h1 {
+      font-family: var(--font-display);
+      font-weight: 600;
+      font-size: clamp(2.2rem, 5vw, 3.2rem);
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      color: var(--text-bright);
+      margin-bottom: 18px;
+    }
+    h1 em { color: var(--brand-bright); font-style: italic; }
+
+    .lede {
+      font-size: 1.05rem;
+      line-height: 1.65;
+      color: var(--text-muted);
+      max-width: 440px;
+      margin: 0 auto 36px;
+    }
+
+    .actions { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-family: var(--font-ui); font-weight: 700; font-size: 0.92rem;
+      padding: 13px 24px; border-radius: 100px;
+      transition: transform 0.2s var(--ease-out), box-shadow 0.2s var(--ease-out), border-color 0.2s var(--ease-out), color 0.2s var(--ease-out);
+      text-decoration: none;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--brand-bright), var(--brand-dim));
+      color: #fff;
+      box-shadow: 0 8px 24px -8px rgba(102, 114, 232, 0.65);
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 14px 32px -8px rgba(102, 114, 232, 0.8); }
+    .btn-ghost {
+      background: var(--bg-raised); border: 1px solid var(--border); color: var(--text-normal);
+    }
+    .btn-ghost:hover { border-color: var(--brand-bright); color: var(--text-bright); transform: translateY(-2px); }
+    .btn svg { width: 16px; height: 16px; }
+
+    ::selection { background: var(--brand-dim); color: #fff; }
+  </style>
+</head>
+<body>
+  <div class="mesh" aria-hidden="true"><span></span><span></span><span></span></div>
+
+  <div class="card">
+    <div class="brand">
+      <svg viewBox="0 0 48 48" fill="none">
+        <rect width="48" height="48" rx="12" fill="#1c1d21"/>
+        <g stroke="#818cf1" stroke-width="3.4" stroke-linecap="round">
+          <line x1="17" y1="10" x2="13" y2="38"/>
+          <line x1="33" y1="10" x2="29" y2="38"/>
+          <line x1="9" y1="18" x2="39" y2="18"/>
+          <line x1="9" y1="30" x2="39" y2="30"/>
+        </g>
+        <circle cx="34.5" cy="13.5" r="3.4" fill="#ff8a5c"/>
+      </svg>
+      hasht
+    </div>
+
+    <span class="kicker"><span class="dot"></span> Coming soon</span>
+
+    <h1>The chat server that stays <em>yours</em>.</h1>
+    <p class="lede">
+      We're building hasht in the open — a fast, self-hostable chat app with realtime messaging
+      and push notifications. The site's under construction; follow along on GitHub.
+    </p>
+
+    <div class="actions">
+      <a href="https://github.com/hasht-net" target="_blank" rel="noopener" class="btn btn-primary">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.58 2 12.25c0 4.53 2.87 8.37 6.84 9.73.5.1.68-.22.68-.5 0-.24-.01-1.04-.01-1.88-2.78.62-3.37-1.22-3.37-1.22-.46-1.2-1.11-1.52-1.11-1.52-.91-.64.07-.63.07-.63 1 .07 1.53 1.05 1.53 1.05.9 1.58 2.34 1.12 2.91.86.09-.67.35-1.12.64-1.38-2.22-.26-4.56-1.14-4.56-5.06 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.31.1-2.73 0 0 .84-.28 2.75 1.05a9.3 9.3 0 0 1 5 0c1.91-1.33 2.75-1.05 2.75-1.05.55 1.42.2 2.47.1 2.73.64.72 1.03 1.63 1.03 2.75 0 3.93-2.35 4.79-4.58 5.05.36.32.68.94.68 1.9 0 1.37-.01 2.47-.01 2.81 0 .27.18.6.69.5A10.26 10.26 0 0 0 22 12.25C22 6.58 17.52 2 12 2Z"/></svg>
+        Follow on GitHub
+      </a>
+    </div>
+  </div>
+</body>
+</html>
