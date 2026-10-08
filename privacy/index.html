@@ -1,0 +1,409 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Privacy Policy — hasht</title>
+  <meta name="description" content="How hasht handles your data across Hasht Cloud, the hasht mobile and desktop apps, and hasht.net." />
+  <link rel="canonical" href="https://hasht.net/privacy" />
+  <link rel="icon" type="image/x-icon" href="/assets/favicon.ico" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/icon-32.png" />
+  <link rel="icon" type="image/png" sizes="192x192" href="/assets/icon-192.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png" />
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,500&family=Manrope:wght@400;500;600;700;800&display=swap');
+
+    :root {
+      --font-display: 'Fraunces', ui-serif, Georgia, serif;
+      --font-ui: 'Manrope', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      --brand-blue: #048cfd;
+      --brand-purple: #9437fc;
+      --brand-bright: #7f6bfd;
+      --bg-void: #0a0a0c;
+      --bg-raised: #1c1d21;
+      --border: rgba(255, 255, 255, 0.08);
+      --text-bright: #f4f4f6;
+      --text-normal: #d6d7dc;
+      --text-muted: #93949e;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: var(--bg-void);
+      color: var(--text-normal);
+      font-family: var(--font-ui);
+      line-height: 1.7;
+      padding: 48px 16px 80px;
+    }
+
+    .mesh { position: fixed; inset: 0; z-index: -1; overflow: hidden; pointer-events: none; }
+    .mesh span {
+      position: absolute; border-radius: 50%; filter: blur(90px); opacity: 0.18;
+      width: 640px; height: 640px; top: -260px; left: -200px;
+      background: radial-gradient(circle at 30% 30%, var(--brand-blue), transparent 70%);
+    }
+
+    main { max-width: 720px; margin: 0 auto; }
+
+    .brand {
+      display: inline-flex; align-items: center; gap: 10px; margin-bottom: 40px;
+      font-family: var(--font-display); font-weight: 600; font-size: 1.15rem;
+      color: var(--text-bright); text-decoration: none; letter-spacing: -0.01em;
+    }
+    .brand img { width: 30px; height: 30px; border-radius: 8px; }
+
+    h1 {
+      font-family: var(--font-display); font-weight: 600;
+      font-size: clamp(2rem, 5vw, 2.8rem); line-height: 1.1; letter-spacing: -0.02em;
+      color: var(--text-bright); margin-bottom: 10px;
+    }
+    .updated { color: var(--text-muted); font-size: 0.92rem; margin-bottom: 32px; }
+
+    h2 {
+      font-family: var(--font-display); font-weight: 600; font-size: 1.45rem;
+      color: var(--text-bright); letter-spacing: -0.01em;
+      margin: 48px 0 12px; scroll-margin-top: 24px;
+    }
+    h3 { color: var(--text-bright); font-size: 1rem; font-weight: 700; margin: 24px 0 6px; }
+    p, ul { margin-bottom: 14px; }
+    ul { padding-left: 22px; }
+    li { margin-bottom: 6px; }
+    strong { color: var(--text-bright); font-weight: 700; }
+    a { color: var(--brand-bright); text-underline-offset: 3px; }
+    a:hover { color: var(--text-bright); }
+
+    .summary {
+      background: var(--bg-raised); border: 1px solid var(--border);
+      border-radius: 16px; padding: 22px 24px; margin-bottom: 8px;
+    }
+    .summary h2 { margin-top: 0; font-size: 1.15rem; }
+    .summary ul { margin-bottom: 0; }
+
+    .toc { columns: 2; column-gap: 32px; padding-left: 20px; font-size: 0.95rem; }
+    @media (max-width: 560px) { .toc { columns: 1; } }
+
+    .table-wrap { overflow-x: auto; margin-bottom: 14px; }
+    table { width: 100%; border-collapse: collapse; font-size: 0.93rem; }
+    th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid var(--border); }
+    th { color: var(--text-bright); font-weight: 700; }
+
+    footer { margin-top: 64px; padding-top: 24px; border-top: 1px solid var(--border); color: var(--text-muted); font-size: 0.9rem; }
+
+    ::selection { background: var(--brand-purple); color: #fff; }
+  </style>
+</head>
+<body>
+  <div class="mesh" aria-hidden="true"><span></span></div>
+
+  <main>
+    <a href="/" class="brand">
+      <img src="/assets/icon-192.png" alt="" width="30" height="30" />
+      hasht
+    </a>
+
+    <h1>Privacy Policy</h1>
+    <p class="updated">Effective October 7, 2026</p>
+
+    <div class="summary">
+      <h2>The short version</h2>
+      <ul>
+        <li>We collect what we need to run your chats, calls and file sharing — and nothing for advertising.</li>
+        <li>We don't sell your data, share it for advertising, or train AI models on your messages.</li>
+        <li>The hasht apps contain no ads, ad SDKs or third-party analytics.</li>
+        <li>If you connect an app to a <strong>self-hosted</strong> server, that server's operator controls your data there, not us.</li>
+        <li>You can export or delete your data, and delete your account, at any time.</li>
+      </ul>
+    </div>
+
+    <h2 id="contents">Contents</h2>
+    <ol class="toc">
+      <li><a href="#scope">Who we are and what this covers</a></li>
+      <li><a href="#self-hosted">Self-hosted servers</a></li>
+      <li><a href="#collect">Information we collect</a></li>
+      <li><a href="#calls">Voice and video calls</a></li>
+      <li><a href="#permissions">Device permissions</a></li>
+      <li><a href="#use">How we use information</a></li>
+      <li><a href="#share">How we share information</a></li>
+      <li><a href="#retention">How long we keep it</a></li>
+      <li><a href="#security">Security</a></li>
+      <li><a href="#rights">Your choices and rights</a></li>
+      <li><a href="#delete-account">Deleting your account</a></li>
+      <li><a href="#children">Children</a></li>
+      <li><a href="#transfers">International transfers</a></li>
+      <li><a href="#changes">Changes to this policy</a></li>
+      <li><a href="#contact">Contact us</a></li>
+    </ol>
+
+    <h2 id="scope">1. Who we are and what this covers</h2>
+    <p>
+      hasht ("hasht", "we", "us") builds open-source chat software with messaging, file sharing,
+      voice calls and video calls. This policy explains how we handle personal information when you use:
+    </p>
+    <ul>
+      <li><strong>Hasht Cloud</strong> — our hosted chat service at <a href="https://chat.hasht.net">chat.hasht.net</a> and hosted plans we run for teams and communities;</li>
+      <li><strong>hasht for iOS and Android</strong> (the "hasht-app" mobile apps);</li>
+      <li><strong>hasht for macOS, Windows and Linux</strong> (the "hasht-desktop" apps); and</li>
+      <li>our website at <a href="https://hasht.net">hasht.net</a>.</li>
+    </ul>
+    <p>
+      For Hasht Cloud, hasht is the controller of the personal information described here. Where we
+      run a hosted server on behalf of an organization (for example, a company's workspace on a
+      Business or Enterprise plan), that organization decides who can join and may set its own
+      policies; we process the workspace's content on its behalf.
+    </p>
+
+    <h2 id="self-hosted">2. Self-hosted servers</h2>
+    <p>
+      hasht is open source, and anyone can run their own server. Our mobile and desktop apps are
+      clients that connect to whichever server you choose — Hasht Cloud or a self-hosted one.
+    </p>
+    <p>
+      <strong>When you connect to a server someone else runs, your account, messages, files and
+      call signaling are stored and handled by that server's operator, not by us.</strong> We have no
+      access to that data, and this policy does not cover it. Ask the server's operator for their
+      privacy policy.
+    </p>
+    <p>
+      The apps themselves store only the list of servers you've added and your preferences on your
+      device. Sign-in sessions are kept in the app's local storage for each server and are never sent
+      to us. The only hasht-operated services an app may contact while you use a self-hosted server are:
+    </p>
+    <ul>
+      <li><strong>Push notifications (mobile)</strong> — see <a href="#push">Push notifications</a> below.</li>
+      <li><strong>Update checks (desktop)</strong> — the desktop app checks our public GitHub releases for new versions. This request goes to GitHub and includes your IP address and app version; it contains no account information.</li>
+    </ul>
+
+    <h2 id="collect">3. Information we collect</h2>
+
+    <h3>Account information</h3>
+    <p>
+      When you create a Hasht Cloud account we collect your username, email address and password
+      (stored only as a salted hash). You may optionally add a display name, profile picture, status
+      and other profile details. Profile information is visible to other people on the servers and
+      in the channels you join.
+    </p>
+
+    <h3>Content you create</h3>
+    <p>
+      We store the content you send so we can deliver it and show you your history: messages,
+      reactions, edits, files, images, voice messages and other attachments, along with the channels,
+      servers and direct conversations you create or join. File metadata (name, size, type and upload
+      time) is stored with each file. Content is visible to the people you share it with.
+    </p>
+
+    <h3>Contacts and social graph</h3>
+    <p>
+      We store the servers and channels you belong to, the people you message, your roles and
+      permissions, and any users you block. We do <strong>not</strong> access or upload your phone's
+      address book.
+    </p>
+
+    <h3>Billing information</h3>
+    <p>
+      If you buy a paid plan, payment is handled by our payment processor. We receive your billing
+      name, email, billing address, plan and transaction history, and the last four digits and expiry of
+      your card — never your full card number.
+    </p>
+
+    <h3>Usage and technical information</h3>
+    <p>When you use Hasht Cloud our servers automatically record:</p>
+    <ul>
+      <li>IP address, approximate location derived from it (country/region), and connection times;</li>
+      <li>device type, operating system, app or browser version and language;</li>
+      <li>security and service logs, such as sign-ins, failed sign-in attempts, API requests and errors.</li>
+    </ul>
+
+    <h3 id="diagnostics">Diagnostics and crash reports</h3>
+    <p>
+      Hasht Cloud uses <a href="https://sentry.io/privacy/">Sentry</a> to detect and fix errors and
+      performance problems. When something goes wrong, a diagnostic report may be sent containing the
+      error and stack trace, the page or feature in use, timing information, device, OS and app or
+      browser version, IP address, and an internal user ID so we can follow up on a problem affecting
+      your account. Diagnostic reports are used only to keep the service working; they are not used for
+      advertising or profiling.
+    </p>
+
+    <h3 id="push">Push notifications</h3>
+    <p>
+      If you allow notifications on mobile, your device receives a push token from Apple (APNs) or
+      Google (Firebase Cloud Messaging). We store that token with your account so we can tell you about
+      new messages and incoming calls. Notification contents are delivered through Apple's or Google's
+      push service. When you sign out or turn notifications off, the token is unregistered.
+    </p>
+    <p>
+      If you use a self-hosted server, that server may deliver its notifications through a hasht relay,
+      because mobile push can only be sent through the app publisher's credentials. The relay receives
+      your device's push token and the notification in transit, forwards it to Apple or Google, and
+      does not keep the notification after delivery.
+    </p>
+
+    <h3>Website</h3>
+    <p>
+      hasht.net uses no cookies, analytics or tracking. Our host keeps standard server logs (such as IP
+      address and pages requested) for security and reliability. If you email us, we keep the email and
+      your address so we can reply.
+    </p>
+
+    <h2 id="calls">4. Voice and video calls</h2>
+    <p>
+      Calls use WebRTC. Audio and video are encrypted in transit between participants using DTLS-SRTP.
+      On Hasht Cloud, calls are routed through our TURN relay so participants never see each other's IP
+      addresses; the relay forwards encrypted media and cannot listen to or watch it.
+    </p>
+    <p>
+      <strong>We do not record calls.</strong> We keep call metadata — who took part, when the call
+      started and ended, and its duration — so we can show call history and diagnose connection issues.
+    </p>
+
+    <h2 id="permissions">5. Device permissions</h2>
+    <p>The apps ask for permissions only when a feature needs them, and you can revoke them at any time in your device settings.</p>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Permission</th><th>Why</th></tr></thead>
+        <tbody>
+          <tr><td>Microphone</td><td>To speak in voice and video calls and record voice messages. On Android, a foreground notification is shown while a call keeps the microphone active in the background.</td></tr>
+          <tr><td>Camera</td><td>To turn on your video during a call, and to take photos to share if you choose to.</td></tr>
+          <tr><td>Notifications</td><td>To alert you to new messages, mentions and incoming calls.</td></tr>
+          <tr><td>Photos and files</td><td>Only the specific items you choose to attach or upload. The apps don't scan your library.</td></tr>
+          <tr><td>Screen sharing (desktop)</td><td>Only when you start sharing your screen or a window during a call.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>We never use the microphone or camera outside a call or a recording you start, and we do not collect precise location.</p>
+
+    <h2 id="use">6. How we use information</h2>
+    <ul>
+      <li><strong>To provide the service</strong> — delivering messages, files and calls, syncing across your devices, and sending notifications.</li>
+      <li><strong>To keep it safe</strong> — preventing spam, abuse and fraud, enforcing our terms, and responding to reports.</li>
+      <li><strong>To keep it working</strong> — diagnosing errors, monitoring performance and capacity, and fixing bugs.</li>
+      <li><strong>To communicate with you</strong> — account, security, billing and important service notices. We'll send product news only if you opt in, and you can opt out at any time.</li>
+      <li><strong>To meet legal obligations</strong> — tax and accounting records, and lawful requests.</li>
+    </ul>
+    <p>
+      We do not use your content for advertising, sell or rent personal information, or use your
+      messages, files or calls to train AI models — ours or anyone else's. Optional AI features, where
+      offered, act only on the content you or your workspace choose to give them.
+    </p>
+    <p>
+      If you are in the EEA, UK or Switzerland, our legal bases are: performing our contract with you
+      (providing the service), our legitimate interests (security, abuse prevention and diagnostics),
+      your consent (such as push notifications and marketing emails, which you can withdraw), and legal
+      obligations.
+    </p>
+
+    <h2 id="share">7. How we share information</h2>
+    <p>We share personal information only in these cases:</p>
+    <ul>
+      <li><strong>With the people you communicate with.</strong> Messages, files, profile details and call participation are shared with the members of the conversations, channels and servers you join.</li>
+      <li><strong>With service providers</strong> who process data for us under contract and only on our instructions:
+        <ul>
+          <li>cloud hosting and storage providers, for running Hasht Cloud and storing messages and files;</li>
+          <li>Apple and Google, for push notifications;</li>
+          <li>Sentry (Functional Software, Inc.), for error and performance diagnostics;</li>
+          <li>our payment processor, for paid plans;</li>
+          <li>our email provider, for account and service emails.</li>
+        </ul>
+      </li>
+      <li><strong>With your organization.</strong> If you use a workspace run by an organization, its administrators may be able to access, export or delete content in that workspace.</li>
+      <li><strong>For legal reasons.</strong> When we believe in good faith that the law requires it, or to protect the safety, rights or property of our users, the public or hasht. Where permitted, we will notify you before disclosing your data.</li>
+      <li><strong>In a business transfer.</strong> If hasht is involved in a merger, acquisition or sale of assets, personal information may transfer as part of it, subject to this policy. We will notify you before that happens.</li>
+    </ul>
+
+    <h2 id="retention">8. How long we keep it</h2>
+    <ul>
+      <li><strong>Messages and files</strong> are kept until you delete them, a server or channel admin deletes them, or your account is deleted. Workspaces on paid plans may set their own retention periods.</li>
+      <li><strong>Deleted content</strong> is removed from our live systems promptly and purged from backups within 30 days.</li>
+      <li><strong>Server and security logs</strong> are kept for up to 90 days.</li>
+      <li><strong>Diagnostic reports</strong> are kept for up to 90 days.</li>
+      <li><strong>Billing records</strong> are kept for as long as tax and accounting law requires.</li>
+    </ul>
+
+    <h2 id="security">9. Security</h2>
+    <p>
+      All traffic between the apps and Hasht Cloud is encrypted in transit with TLS, and call media is
+      encrypted with DTLS-SRTP. Passwords are stored as salted hashes. Access to production systems is
+      restricted to the people who need it to run the service. Because hasht is open source, anyone can
+      inspect the code that handles their data.
+    </p>
+    <p>
+      No system is perfectly secure. If we learn of a breach affecting your personal information, we
+      will notify you and the relevant authorities as the law requires. To report a vulnerability,
+      email <a href="mailto:security@hasht.net">security@hasht.net</a>.
+    </p>
+
+    <h2 id="rights">10. Your choices and rights</h2>
+    <p>Wherever you live, you can:</p>
+    <ul>
+      <li><strong>Access and export</strong> your account information and content;</li>
+      <li><strong>Correct</strong> your profile and account details in settings;</li>
+      <li><strong>Delete</strong> individual messages and files, or your whole account;</li>
+      <li><strong>Turn off</strong> notifications and revoke device permissions at any time;</li>
+      <li><strong>Object to or restrict</strong> certain processing, and withdraw consent you've given.</li>
+    </ul>
+    <p>
+      Depending on where you live (for example under the GDPR, UK GDPR or California's CCPA/CPRA), you
+      may have further rights, including data portability and the right to complain to your local data
+      protection authority. We don't sell or "share" personal information for cross-context behavioral
+      advertising as those terms are defined under California law, and we won't discriminate against you
+      for exercising your rights.
+    </p>
+    <p>
+      To make a request, email <a href="mailto:privacy@hasht.net">privacy@hasht.net</a> from the address
+      on your account. We'll respond within 30 days. For content in an organization's workspace, we may
+      refer you to that organization.
+    </p>
+
+    <h2 id="delete-account">11. Deleting your account</h2>
+    <p>You can delete your Hasht Cloud account at any time:</p>
+    <ul>
+      <li><strong>In the app or on the web:</strong> open <em>Settings → Account → Delete account</em> and confirm.</li>
+      <li><strong>By email:</strong> write to <a href="mailto:privacy@hasht.net?subject=Delete%20my%20account">privacy@hasht.net</a> from the address on your account and ask us to delete it.</li>
+    </ul>
+    <p>
+      Deleting your account removes your profile, push tokens, direct messages and files you uploaded
+      from our live systems, and from backups within 30 days. Messages you posted in shared channels
+      are deleted, except where a workspace's administrator has a retention policy that requires
+      keeping them. We keep billing records as required by law and may keep minimal records needed to
+      prevent abuse (for example, of banned accounts).
+    </p>
+    <p>
+      Uninstalling an app does not delete your account. For an account on a self-hosted server, contact
+      that server's operator.
+    </p>
+
+    <h2 id="children">12. Children</h2>
+    <p>
+      Hasht Cloud is not directed at children under 13, and you must be at least 13 years old (or the
+      minimum age of digital consent in your country, if higher) to create an account. We don't knowingly
+      collect personal information from children under that age. If you believe a child has given us
+      personal information, contact <a href="mailto:privacy@hasht.net">privacy@hasht.net</a> and we will
+      delete it.
+    </p>
+
+    <h2 id="transfers">13. International transfers</h2>
+    <p>
+      We and our service providers may process information in countries other than your own, including
+      the United States. Where we transfer personal information out of the EEA, UK or Switzerland, we
+      rely on appropriate safeguards such as the European Commission's Standard Contractual Clauses.
+    </p>
+
+    <h2 id="changes">14. Changes to this policy</h2>
+    <p>
+      We'll update this page when our practices change and revise the effective date above. If a change
+      is significant, we'll notify you in the app or by email before it takes effect. Past versions are
+      available in this site's public history on <a href="https://github.com/hasht-net">GitHub</a>.
+    </p>
+
+    <h2 id="contact">15. Contact us</h2>
+    <p>
+      Questions or requests about privacy: <a href="mailto:privacy@hasht.net">privacy@hasht.net</a><br />
+      General: <a href="mailto:hello@hasht.net">hello@hasht.net</a>
+    </p>
+
+    <footer>
+      © 2026 hasht · <a href="/">Home</a> · <a href="https://github.com/hasht-net">GitHub</a>
+    </footer>
+  </main>
+</body>
+</html>
