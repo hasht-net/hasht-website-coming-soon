@@ -113,14 +113,6 @@
       content: ''; position: absolute; inset: -120px 0 auto; height: 720px; z-index: -1; pointer-events: none;
       background: radial-gradient(60% 50% at 50% 0%, rgba(65, 79, 212, 0.28), transparent 70%);
     }
-    .eyebrow {
-      display: inline-flex; align-items: center; gap: 8px;
-      font-size: 0.78rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
-      color: var(--brand-text); background: var(--brand-tint);
-      border: 1px solid rgba(65, 79, 212, 0.35);
-      padding: 5px 12px; border-radius: 100px; margin-bottom: 24px;
-    }
-    .eyebrow .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--success); }
     h1 {
       font-weight: 800; color: var(--text-bright);
       font-size: clamp(2.3rem, 6vw, 4rem); line-height: 1.05; letter-spacing: -0.035em;
@@ -283,7 +275,6 @@
 
   <header class="hero">
     <div class="wrap">
-      <span class="eyebrow"><span class="dot"></span>Hosted or self-hosted</span>
       <h1>The chat server that stays <span class="accent">yours</span>.</h1>
       <p class="lede">
         Channels, threads, voice and video, search and push notifications, in one fast app.
@@ -320,7 +311,7 @@
             <div class="row-text">
               <span class="icon-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.5 8.6 8.6 0 0 1-3.8-.9L3 21l1.9-5.2A8.4 8.4 0 0 1 4 11.5 8.5 8.5 0 0 1 12.5 3 8.5 8.5 0 0 1 21 11.5Z"/><path d="M8 10h8M8 14h5"/></svg></span>
               <h3>Threads keep busy channels readable</h3>
-              <p>Reply in a thread from any message and the side conversation stays out of the main channel. Each thread has its own notifications, so you only follow the ones you care about.</p>
+              <p>Reply in a thread from any message and the side conversation stays out of the main channel.</p>
               <ul class="ticks">
                 <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5L20 7"/></svg>Markdown and code blocks with syntax highlighting</li>
                 <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5L20 7"/></svg>Reactions, pins, mentions and a recent threads menu</li>
@@ -334,7 +325,7 @@
             <div class="row-text">
               <span class="icon-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="14" height="12" rx="2"/><path d="m16 10 6-3v10l-6-3"/></svg></span>
               <h3>Voice and video, built into every server</h3>
-              <p>Drop into a voice channel to talk, turn your camera on, or share your screen with its audio. Everyone in the server can see who's in which call.</p>
+              <p>Drop into a voice channel to talk, turn your camera on, or share your screen with its audio.</p>
               <ul class="ticks">
                 <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5L20 7"/></svg>Calls go through a relay, so participants never see each other's IP address</li>
                 <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5L20 7"/></svg>Noise suppression, speaking indicators and a full-screen stage</li>
