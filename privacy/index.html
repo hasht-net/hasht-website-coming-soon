@@ -4,6 +4,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Privacy Policy — hasht</title>
+  <link rel="preload" href="/assets/fonts/manrope-latin.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="stylesheet" href="/assets/fonts.css" />
+  <script src="/assets/analytics.js" defer></script>
   <meta name="description" content="How hasht handles your data across Hasht Cloud, the hasht mobile and desktop apps, and hasht.net." />
   <link rel="canonical" href="https://hasht.net/privacy" />
   <link rel="icon" type="image/x-icon" href="/assets/favicon.ico" />
@@ -11,20 +14,19 @@
   <link rel="icon" type="image/png" sizes="192x192" href="/assets/icon-192.png" />
   <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png" />
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,500&family=Manrope:wght@400;500;600;700;800&display=swap');
 
     :root {
-      --font-display: 'Fraunces', ui-serif, Georgia, serif;
+      --font-display: 'Manrope', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
       --font-ui: 'Manrope', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      --brand-blue: #048cfd;
-      --brand-purple: #9437fc;
-      --brand-bright: #7f6bfd;
-      --bg-void: #0a0a0c;
+      --brand-blue: #414fd4;
+      --brand-purple: #414fd4;
+      --brand-bright: #99a2f5;
+      --bg-void: #141518;
       --bg-raised: #1c1d21;
       --border: rgba(255, 255, 255, 0.08);
-      --text-bright: #f4f4f6;
-      --text-normal: #d6d7dc;
-      --text-muted: #93949e;
+      --text-bright: #f2f3f5;
+      --text-normal: #dbdee1;
+      --text-muted: #a2a8b1;
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -103,7 +105,7 @@
     </a>
 
     <h1>Privacy Policy</h1>
-    <p class="updated">Effective October 7, 2026</p>
+    <p class="updated">Effective October 17, 2026</p>
 
     <div class="summary">
       <h2>The short version</h2>
@@ -137,7 +139,7 @@
 
     <h2 id="scope">1. Who we are and what this covers</h2>
     <p>
-      hasht ("hasht", "we", "us") builds open-source chat software with messaging, file sharing,
+      Hasht LLC, a Texas limited liability company ("Hasht LLC", "we", "us"), builds the hasht open-source chat software with messaging, file sharing,
       voice calls and video calls. This policy explains how we handle personal information when you use:
     </p>
     <ul>
@@ -147,9 +149,9 @@
       <li>our website at <a href="https://hasht.net">hasht.net</a>.</li>
     </ul>
     <p>
-      For Hasht Cloud, hasht is the controller of the personal information described here. Where we
-      run a hosted server on behalf of an organization (for example, a company's workspace on a
-      Business or Enterprise plan), that organization decides who can join and may set its own
+      For Hasht Cloud, Hasht LLC is the controller of the personal information described here. Where we
+      run a hosted server on behalf of an organization (for example, a company's workspace), that
+      organization decides who can join and may set its own
       policies; we process the workspace's content on its behalf.
     </p>
 
@@ -167,7 +169,7 @@
     <p>
       The apps themselves store only the list of servers you've added and your preferences on your
       device. Sign-in sessions are kept in the app's local storage for each server and are never sent
-      to us. The only hasht-operated services an app may contact while you use a self-hosted server are:
+      to us. The only services operated by Hasht LLC that an app may contact while you use a self-hosted server are:
     </p>
     <ul>
       <li><strong>Push notifications (mobile)</strong> — see <a href="#push">Push notifications</a> below.</li>
@@ -238,10 +240,17 @@
       does not keep the notification after delivery.
     </p>
 
-    <h3>Website</h3>
+    <h3 id="website">Website</h3>
     <p>
-      hasht.net uses no cookies, analytics or tracking. Our host keeps standard server logs (such as IP
-      address and pages requested) for security and reliability. If you email us, we keep the email and
+      hasht.net uses Google Analytics to understand how visitors use the site, such as which pages are
+      viewed and how people find us. Google Analytics sets cookies and receives your IP address, browser
+      and device details, and the pages you visit. We've turned off Google signals and ad personalization,
+      we don't use it for advertising, and we don't combine it with account data. It runs only on
+      hasht.net, not in the hasht apps or Hasht Cloud. If your browser sends a Global Privacy Control
+      signal, Google Analytics doesn't load. You can also turn it off here:
+      <a href="#" data-analytics-optout>Opt out of analytics on this browser</a>. The site's fonts are
+      hosted on hasht.net itself, so loading a page doesn't contact Google Fonts. Our host keeps standard
+      server logs (such as IP address and pages requested) for security and reliability. If you email us, we keep the email and
       your address so we can reply.
     </p>
 
@@ -301,19 +310,21 @@
           <li>cloud hosting and storage providers, for running Hasht Cloud and storing messages and files;</li>
           <li>Apple and Google, for push notifications;</li>
           <li>Sentry (Functional Software, Inc.), for error and performance diagnostics;</li>
+          <li>Google (Google Analytics), for website analytics on hasht.net;</li>
           <li>our payment processor, for paid plans;</li>
           <li>our email provider, for account and service emails.</li>
         </ul>
       </li>
       <li><strong>With your organization.</strong> If you use a workspace run by an organization, its administrators may be able to access, export or delete content in that workspace.</li>
-      <li><strong>For legal reasons.</strong> When we believe in good faith that the law requires it, or to protect the safety, rights or property of our users, the public or hasht. Where permitted, we will notify you before disclosing your data.</li>
-      <li><strong>In a business transfer.</strong> If hasht is involved in a merger, acquisition or sale of assets, personal information may transfer as part of it, subject to this policy. We will notify you before that happens.</li>
+      <li><strong>For legal reasons.</strong> When we believe in good faith that the law requires it, or to protect the safety, rights or property of our users, the public or Hasht LLC. Where permitted, we will notify you before disclosing your data.</li>
+      <li><strong>In a business transfer.</strong> If Hasht LLC is involved in a merger, acquisition or sale of assets, personal information may transfer as part of it, subject to this policy. We will notify you before that happens.</li>
     </ul>
 
     <h2 id="retention">8. How long we keep it</h2>
     <ul>
       <li><strong>Messages and files</strong> are kept until you delete them, a server or channel admin deletes them, or your account is deleted. Workspaces on paid plans may set their own retention periods.</li>
-      <li><strong>Deleted content</strong> is removed from our live systems promptly and purged from backups within 30 days.</li>
+      <li><strong>Deleted messages and files</strong> disappear for everyone as soon as they're deleted. We keep the deleted content for up to 30 days so server admins and our team can review abuse reports, then erase it permanently. It's overwritten in our backups within 30 days after that, so it's fully gone within 60 days.</li>
+      <li><strong>Legal holds.</strong> We keep specific content longer only when the law requires it: for example, up to 180 days after a valid U.S. legal preservation request, or one year after we report child sexual abuse material to the National Center for Missing &amp; Exploited Children, as federal law requires.</li>
       <li><strong>Server and security logs</strong> are kept for up to 90 days.</li>
       <li><strong>Diagnostic reports</strong> are kept for up to 90 days.</li>
       <li><strong>Billing records</strong> are kept for as long as tax and accounting law requires.</li>
@@ -329,7 +340,7 @@
     <p>
       No system is perfectly secure. If we learn of a breach affecting your personal information, we
       will notify you and the relevant authorities as the law requires. To report a vulnerability,
-      email <a href="mailto:security@hasht.net">security@hasht.net</a>.
+      email <a href="mailto:privacy@hasht.net">privacy@hasht.net</a>.
     </p>
 
     <h2 id="rights">10. Your choices and rights</h2>
@@ -361,8 +372,9 @@
       <li><strong>By email:</strong> write to <a href="mailto:privacy@hasht.net?subject=Delete%20my%20account">privacy@hasht.net</a> from the address on your account and ask us to delete it.</li>
     </ul>
     <p>
-      Deleting your account removes your profile, push tokens, direct messages and files you uploaded
-      from our live systems, and from backups within 30 days. Messages you posted in shared channels
+      Deleting your account removes your profile, push tokens, direct messages and files you uploaded.
+      Like other deleted content, they're erased within 30 days and overwritten in backups within 30 days
+      after that (see <a href="#retention">How long we keep it</a>). Messages you posted in shared channels
       are deleted, except where a workspace's administrator has a retention policy that requires
       keeping them. We keep billing records as required by law and may keep minimal records needed to
       prevent abuse (for example, of banned accounts).
@@ -398,11 +410,12 @@
     <h2 id="contact">15. Contact us</h2>
     <p>
       Questions or requests about privacy: <a href="mailto:privacy@hasht.net">privacy@hasht.net</a><br />
-      General: <a href="mailto:hello@hasht.net">hello@hasht.net</a>
+      General: <a href="mailto:hello@hasht.net">hello@hasht.net</a><br />
+      By mail: Hasht LLC, 5900 Balcones Drive, Suite 100, Austin, TX 78731
     </p>
 
     <footer>
-      © 2026 hasht · <a href="/">Home</a> · <a href="https://github.com/hasht-net">GitHub</a>
+      © 2026 Hasht LLC · <a href="/">Home</a> · <a href="/terms">Terms</a> · <a href="https://github.com/hasht-net">GitHub</a>
     </footer>
   </main>
 </body>
