@@ -90,7 +90,12 @@
     }
     .nav-links a:not(.btn):hover { color: var(--text-bright); background: var(--bg-hover); }
     .nav-links .btn { margin-left: 8px; }
-    @media (max-width: 760px) { .nav-links a:not(.btn) { display: none; } }
+    .nav-links .nav-gh { display: inline-flex; align-items: center; gap: 6px; }
+    .nav-gh svg { width: 18px; height: 18px; }
+    @media (max-width: 760px) {
+      .nav-links a:not(.btn):not(.nav-gh) { display: none; }
+      .nav-gh span { display: none; }
+    }
 
     .btn {
       display: inline-flex; align-items: center; justify-content: center; gap: 8px;
@@ -120,6 +125,11 @@
     }
     h1 .accent { color: var(--brand-text); }
     .lede { font-size: 1.12rem; color: var(--text-muted); max-width: 620px; margin: 0 auto 32px; }
+    .beta-note { color: var(--text-normal); font-weight: 600; font-size: 0.95rem; margin: -12px auto 24px; max-width: 520px; }
+    .beta-note .dot {
+      display: inline-block; width: 8px; height: 8px; border-radius: 50%;
+      background: var(--success); margin-right: 8px; vertical-align: 0.08em;
+    }
     .hero-actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-bottom: 56px; }
 
     /* Screenshot frame, styled like the app's own floating surfaces */
@@ -268,6 +278,7 @@
         <a href="#voice">Voice &amp; video</a>
         <a href="#apps">Apps</a>
         <a href="#self-host">Self-hosting</a>
+        <a href="https://github.com/hasht-net" target="_blank" rel="noopener" class="nav-gh" aria-label="hasht on GitHub"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.48 2 2 6.58 2 12.25c0 4.53 2.87 8.37 6.84 9.73.5.1.68-.22.68-.5 0-.24-.01-1.04-.01-1.88-2.78.62-3.37-1.22-3.37-1.22-.46-1.2-1.11-1.52-1.11-1.52-.91-.64.07-.63.07-.63 1 .07 1.53 1.05 1.53 1.05.9 1.58 2.34 1.12 2.91.86.09-.67.35-1.12.64-1.38-2.22-.26-4.56-1.14-4.56-5.06 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.31.1-2.73 0 0 .84-.28 2.75 1.05a9.3 9.3 0 0 1 5 0c1.91-1.33 2.75-1.05 2.75-1.05.55 1.42.2 2.47.1 2.73.64.72 1.03 1.63 1.03 2.75 0 3.93-2.35 4.79-4.58 5.05.36.32.68.94.68 1.9 0 1.37-.01 2.47-.01 2.81 0 .27.18.6.69.5A10.26 10.26 0 0 0 22 12.25C22 6.58 17.52 2 12 2Z"/></svg><span>GitHub</span></a>
         <a href="https://chat.hasht.net" class="btn btn-primary">Log in</a>
       </div>
     </div>
@@ -280,15 +291,13 @@
         Channels, threads, voice and video, search and push notifications, in one fast app.
         Use it on Hasht Cloud, or run the same app on your own server.
       </p>
+      <p class="beta-note"><span class="dot"></span>hasht is in private beta. Request access and we'll email you an invite.</p>
       <div class="hero-actions">
-        <a href="https://chat.hasht.net" class="btn btn-primary btn-lg">
-          Log in to hasht
+        <a href="mailto:support@hasht.net?subject=hasht%20beta%20access%20request&amp;body=Hi%20hasht%20team%2C%0A%0AI%27d%20like%20to%20join%20the%20private%20beta.%0A%0AName%3A%0ATeam%20or%20community%3A%0ARoughly%20how%20many%20people%3A%0AWhat%20you%27d%20use%20it%20for%3A%0A" class="btn btn-primary btn-lg">
+          Request beta access
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
         </a>
-        <a href="https://github.com/hasht-net" target="_blank" rel="noopener" class="btn btn-ghost btn-lg">
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.58 2 12.25c0 4.53 2.87 8.37 6.84 9.73.5.1.68-.22.68-.5 0-.24-.01-1.04-.01-1.88-2.78.62-3.37-1.22-3.37-1.22-.46-1.2-1.11-1.52-1.11-1.52-.91-.64.07-.63.07-.63 1 .07 1.53 1.05 1.53 1.05.9 1.58 2.34 1.12 2.91.86.09-.67.35-1.12.64-1.38-2.22-.26-4.56-1.14-4.56-5.06 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.31.1-2.73 0 0 .84-.28 2.75 1.05a9.3 9.3 0 0 1 5 0c1.91-1.33 2.75-1.05 2.75-1.05.55 1.42.2 2.47.1 2.73.64.72 1.03 1.63 1.03 2.75 0 3.93-2.35 4.79-4.58 5.05.36.32.68.94.68 1.9 0 1.37-.01 2.47-.01 2.81 0 .27.18.6.69.5A10.26 10.26 0 0 0 22 12.25C22 6.58 17.52 2 12 2Z"/></svg>
-          Follow on GitHub
-        </a>
+        <a href="https://chat.hasht.net" class="btn btn-ghost btn-lg">Log in</a>
       </div>
       <div class="shot">
         <img src="assets/screenshots/hero.jpg" width="2400" height="1500"
@@ -484,11 +493,11 @@
         </div>
 
         <div class="cta reveal">
-          <h2>Ready when you are.</h2>
-          <p>Already have an account on Hasht Cloud? Pick up where you left off.</p>
+          <h2>Join the private beta.</h2>
+          <p>Tell us a little about your team or community and we'll send you an invite. Already in? Log in and pick up where you left off.</p>
           <div class="hero-actions">
-            <a href="https://chat.hasht.net" class="btn btn-primary btn-lg">Log in to hasht</a>
-            <a href="https://github.com/hasht-net" target="_blank" rel="noopener" class="btn btn-ghost btn-lg">Follow on GitHub</a>
+            <a href="mailto:support@hasht.net?subject=hasht%20beta%20access%20request&amp;body=Hi%20hasht%20team%2C%0A%0AI%27d%20like%20to%20join%20the%20private%20beta.%0A%0AName%3A%0ATeam%20or%20community%3A%0ARoughly%20how%20many%20people%3A%0AWhat%20you%27d%20use%20it%20for%3A%0A" class="btn btn-primary btn-lg">Request beta access</a>
+            <a href="https://chat.hasht.net" class="btn btn-ghost btn-lg">Log in</a>
           </div>
         </div>
       </div>
