@@ -1,18 +1,12 @@
 <!doctype html>
 <html lang="en" data-theme="dark">
 <head>
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXT980GLW8"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-
-    gtag('config', 'G-XXT980GLW8');
-  </script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Privacy Policy — hasht</title>
+  <link rel="preload" href="/assets/fonts/manrope-latin.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="stylesheet" href="/assets/fonts.css" />
+  <script src="/assets/consent.js" defer></script>
   <meta name="description" content="How hasht handles your data across Hasht Cloud, the hasht mobile and desktop apps, and hasht.net." />
   <link rel="canonical" href="https://hasht.net/privacy" />
   <link rel="icon" type="image/x-icon" href="/assets/favicon.ico" />
@@ -20,7 +14,6 @@
   <link rel="icon" type="image/png" sizes="192x192" href="/assets/icon-192.png" />
   <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png" />
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap');
 
     :root {
       --font-display: 'Manrope', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
@@ -146,7 +139,7 @@
 
     <h2 id="scope">1. Who we are and what this covers</h2>
     <p>
-      Hasht LLC ("Hasht LLC", "we", "us") builds the hasht open-source chat software with messaging, file sharing,
+      Hasht LLC, a Texas limited liability company ("Hasht LLC", "we", "us"), builds the hasht open-source chat software with messaging, file sharing,
       voice calls and video calls. This policy explains how we handle personal information when you use:
     </p>
     <ul>
@@ -247,15 +240,19 @@
       does not keep the notification after delivery.
     </p>
 
-    <h3>Website</h3>
+    <h3 id="website">Website</h3>
     <p>
-      hasht.net uses Google Analytics to understand how visitors use the site, such as which pages are
-      viewed and how people find us. Google Analytics sets cookies and receives your IP address, browser
-      and device details, and the pages you visit. It runs only on hasht.net, not in the hasht apps or
-      Hasht Cloud, and we don't combine it with account data. You can opt out with your browser's
-      tracking protection or Google's
-      <a href="https://tools.google.com/dlpage/gaoptout">opt-out browser add-on</a>. Our host keeps
-      standard server logs (such as IP address and pages requested) for security and reliability. If you email us, we keep the email and
+      hasht.net can use Google Analytics to understand how visitors use the site, such as which pages
+      are viewed and how people find us. It's <strong>off unless you allow it</strong>: the site asks
+      first, and Google Analytics loads and sets cookies only after you choose "Allow analytics". If your
+      browser sends a Global Privacy Control signal, we treat that as a no and don't ask. When it's on,
+      Google receives your IP address, browser and device details, and the pages you visit. We've turned
+      off Google signals and ad personalization, we don't use it for advertising, and we don't combine it
+      with account data. It runs only on hasht.net, not in the hasht apps or Hasht Cloud. You can change
+      your choice at any time with the <a href="#" data-cookie-settings>Cookie settings</a> link at the
+      bottom of every page. The site's fonts are hosted on hasht.net itself, so loading a page doesn't
+      contact Google Fonts. Our host keeps standard server logs (such as IP address and pages requested)
+      for security and reliability. If you email us, we keep the email and
       your address so we can reply.
     </p>
 
@@ -328,7 +325,8 @@
     <h2 id="retention">8. How long we keep it</h2>
     <ul>
       <li><strong>Messages and files</strong> are kept until you delete them, a server or channel admin deletes them, or your account is deleted. Workspaces on paid plans may set their own retention periods.</li>
-      <li><strong>Deleted content</strong> is removed from our live systems promptly and purged from backups within 30 days.</li>
+      <li><strong>Deleted messages and files</strong> disappear for everyone as soon as they're deleted. We keep the deleted content for up to 30 days so server admins and our team can review abuse reports, then erase it permanently. It's overwritten in our backups within 30 days after that, so it's fully gone within 60 days.</li>
+      <li><strong>Legal holds.</strong> We keep specific content longer only when the law requires it: for example, up to 180 days after a valid U.S. legal preservation request, or one year after we report child sexual abuse material to the National Center for Missing &amp; Exploited Children, as federal law requires.</li>
       <li><strong>Server and security logs</strong> are kept for up to 90 days.</li>
       <li><strong>Diagnostic reports</strong> are kept for up to 90 days.</li>
       <li><strong>Billing records</strong> are kept for as long as tax and accounting law requires.</li>
@@ -344,7 +342,7 @@
     <p>
       No system is perfectly secure. If we learn of a breach affecting your personal information, we
       will notify you and the relevant authorities as the law requires. To report a vulnerability,
-      email <a href="mailto:security@hasht.net">security@hasht.net</a>.
+      email <a href="mailto:privacy@hasht.net">privacy@hasht.net</a>.
     </p>
 
     <h2 id="rights">10. Your choices and rights</h2>
@@ -376,8 +374,9 @@
       <li><strong>By email:</strong> write to <a href="mailto:privacy@hasht.net?subject=Delete%20my%20account">privacy@hasht.net</a> from the address on your account and ask us to delete it.</li>
     </ul>
     <p>
-      Deleting your account removes your profile, push tokens, direct messages and files you uploaded
-      from our live systems, and from backups within 30 days. Messages you posted in shared channels
+      Deleting your account removes your profile, push tokens, direct messages and files you uploaded.
+      Like other deleted content, they're erased within 30 days and overwritten in backups within 30 days
+      after that (see <a href="#retention">How long we keep it</a>). Messages you posted in shared channels
       are deleted, except where a workspace's administrator has a retention policy that requires
       keeping them. We keep billing records as required by law and may keep minimal records needed to
       prevent abuse (for example, of banned accounts).
@@ -413,11 +412,12 @@
     <h2 id="contact">15. Contact us</h2>
     <p>
       Questions or requests about privacy: <a href="mailto:privacy@hasht.net">privacy@hasht.net</a><br />
-      General: <a href="mailto:hello@hasht.net">hello@hasht.net</a>
+      General: <a href="mailto:hello@hasht.net">hello@hasht.net</a><br />
+      By mail: Hasht LLC, 5900 Balcones Drive, Suite 100, Austin, TX 78731
     </p>
 
     <footer>
-      © 2026 Hasht LLC · <a href="/">Home</a> · <a href="https://github.com/hasht-net">GitHub</a>
+      © 2026 Hasht LLC · <a href="/">Home</a> · <a href="/terms">Terms</a> · <a href="https://github.com/hasht-net">GitHub</a> · <a href="#" data-cookie-settings>Cookie settings</a>
     </footer>
   </main>
 </body>
