@@ -3,190 +3,529 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>hasht — coming soon</title>
-  <meta name="description" content="hasht is an open-source, self-hostable chat app. We're building in the open — check back soon." />
+  <title>hasht: chat that stays yours</title>
+  <meta name="description" content="hasht is a fast, self-hostable chat app with channels, threads, voice and video, search and push notifications. Use Hasht Cloud or run it on your own server." />
+  <meta name="theme-color" content="#131417" />
+  <link rel="canonical" href="https://hasht.net/" />
+  <meta property="og:title" content="hasht: chat that stays yours" />
+  <meta property="og:description" content="Channels, threads, voice and video, search and push notifications. Hosted or self-hosted." />
+  <meta property="og:image" content="https://hasht.net/assets/screenshots/hero.jpg" />
   <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
   <link rel="icon" type="image/png" sizes="32x32" href="assets/icon-32.png" />
   <link rel="icon" type="image/png" sizes="192x192" href="assets/icon-192.png" />
   <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" />
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,500&family=Manrope:wght@400;500;600;700;800&display=swap');
-
+    /* Tokens mirror chat/frontend/src/style.css (dark theme) so the site reads as the app. */
     :root {
-      --font-display: 'Fraunces', ui-serif, Georgia, serif;
       --font-ui: 'Manrope', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      --brand-blue: #048cfd;
-      --brand-purple: #9437fc;
-      --brand-bright: #7f6bfd;
-      --bg-void: #0a0a0c;
-      --bg-raised: #1c1d21;
-      --border: rgba(255, 255, 255, 0.08);
-      --text-bright: #f4f4f6;
-      --text-normal: #d6d7dc;
-      --text-muted: #93949e;
+      --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+      --brand: #414fd4;
+      --brand-hover: #313aa0;
+      --brand-text: #99a2f5;
+      --brand-tint: rgba(65, 79, 212, 0.15);
+      --success: #23a55a;
+      --bg-rail: #0e0f11;
+      --bg-sidebar: #191a1e;
+      --bg-primary: #1c1d21;
+      --bg-messages: #141518;
+      --bg-input: #24262b;
+      --bg-hover: rgba(78, 80, 88, 0.42);
+      --border: rgba(255, 255, 255, 0.06);
+      --border-strong: rgba(255, 255, 255, 0.16);
+      --text-normal: #dbdee1;
+      --text-bright: #f2f3f5;
+      --text-muted: #a2a8b1;
+      --code-bg: #0e0f11;
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 16px;
+      --shadow-float: 0 8px 24px rgba(0, 0, 0, 0.45);
+      --shadow-shot: 0 1px 0 rgba(255, 255, 255, 0.06) inset, 0 30px 80px -20px rgba(0, 0, 0, 0.7);
       --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+      --wrap: 1180px;
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
 
     body {
-      background: var(--bg-void);
+      background: var(--bg-messages);
       color: var(--text-normal);
       font-family: var(--font-ui);
-      min-height: 100svh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      line-height: 1.6;
       overflow-x: hidden;
-      position: relative;
-      padding: 24px;
+      -webkit-font-smoothing: antialiased;
     }
+    img { display: block; max-width: 100%; height: auto; }
+    a { color: inherit; }
+    ::selection { background: var(--brand); color: #fff; }
 
-    body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      z-index: 2000;
-      opacity: 0.035;
-      mix-blend-mode: overlay;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-    }
+    .wrap { max-width: var(--wrap); margin: 0 auto; padding: 0 24px; }
+    @media (max-width: 560px) { .wrap { padding: 0 16px; } }
 
-    .mesh { position: fixed; inset: 0; z-index: -1; overflow: hidden; pointer-events: none; }
-    .mesh span { position: absolute; border-radius: 50%; filter: blur(90px); opacity: 0.35; animation: drift 26s ease-in-out infinite alternate; }
-    .mesh span:nth-child(1) {
-      width: 640px; height: 640px; top: -220px; left: -160px;
-      background: radial-gradient(circle at 30% 30%, var(--brand-blue), transparent 70%);
+    /* Nav */
+    .nav {
+      position: sticky; top: 0; z-index: 50;
+      background: rgba(14, 15, 17, 0.72);
+      backdrop-filter: blur(24px) saturate(180%);
+      -webkit-backdrop-filter: blur(24px) saturate(180%);
+      border-bottom: 1px solid var(--border);
     }
-    .mesh span:nth-child(2) {
-      width: 520px; height: 520px; top: 30%; right: -220px;
-      background: radial-gradient(circle at 60% 40%, var(--brand-purple), transparent 70%);
-      animation-delay: -8s; opacity: 0.22;
-    }
-    .mesh span:nth-child(3) {
-      width: 480px; height: 480px; bottom: -220px; left: 20%;
-      background: radial-gradient(circle at 50% 50%, var(--brand-purple), transparent 70%);
-      animation-delay: -16s; opacity: 0.2;
-    }
-    @keyframes drift {
-      0% { transform: translate(0, 0) scale(1); }
-      100% { transform: translate(40px, 60px) scale(1.08); }
-    }
-    @media (prefers-reduced-motion: reduce) {
-      .mesh span { animation: none; }
-    }
-
-    .card { max-width: 560px; text-align: center; }
-
+    .nav .wrap { display: flex; align-items: center; height: 60px; gap: 24px; }
     .brand {
-      display: flex; align-items: center; justify-content: center; gap: 10px;
-      width: fit-content; margin: 0 auto 40px;
-      font-family: var(--font-display); font-weight: 600;
-      font-size: 1.15rem; color: var(--text-bright); letter-spacing: -0.01em;
+      display: inline-flex; align-items: center; gap: 10px;
+      font-weight: 800; font-size: 1.1rem; color: var(--text-bright);
+      text-decoration: none; letter-spacing: -0.01em;
     }
-    .brand img { width: 30px; height: 30px; border-radius: 8px; }
-
-    .kicker {
-      display: flex; align-items: center; justify-content: center; gap: 8px;
-      width: fit-content; margin: 0 auto 24px;
-      font-size: 0.78rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
-      color: var(--brand-bright);
-      background: rgba(148, 55, 252, 0.12);
-      border: 1px solid rgba(148, 55, 252, 0.3);
-      padding: 6px 14px; border-radius: 100px;
+    .brand img { width: 28px; height: 28px; border-radius: 7px; }
+    .nav-links { display: flex; align-items: center; gap: 4px; margin-left: auto; }
+    .nav-links a:not(.btn) {
+      color: var(--text-muted); text-decoration: none; font-weight: 600; font-size: 0.92rem;
+      padding: 8px 12px; border-radius: var(--radius-sm);
+      transition: color 0.15s, background 0.15s;
     }
-    .kicker .dot {
-      width: 6px; height: 6px; border-radius: 50%;
-      background: linear-gradient(135deg, var(--brand-blue), var(--brand-purple));
-      box-shadow: 0 0 0 3px rgba(148, 55, 252, 0.25);
-      animation: pulse 1.8s ease-in-out infinite;
-    }
-    @keyframes pulse {
-      0%, 100% { opacity: 1; } 50% { opacity: 0.4; }
-    }
-
-    h1 {
-      font-family: var(--font-display);
-      font-weight: 600;
-      font-size: clamp(2.2rem, 5vw, 3.2rem);
-      line-height: 1.1;
-      letter-spacing: -0.02em;
-      color: var(--text-bright);
-      margin-bottom: 18px;
-    }
-    h1 em {
-      font-style: italic;
-      background: linear-gradient(135deg, var(--brand-blue), var(--brand-purple));
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-    }
-
-    .lede {
-      font-size: 1.05rem;
-      line-height: 1.65;
-      color: var(--text-muted);
-      max-width: 440px;
-      margin: 0 auto 36px;
-    }
-
-    .actions { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+    .nav-links a:not(.btn):hover { color: var(--text-bright); background: var(--bg-hover); }
+    .nav-links .btn { margin-left: 8px; }
+    @media (max-width: 760px) { .nav-links a:not(.btn) { display: none; } }
 
     .btn {
-      display: inline-flex; align-items: center; gap: 8px;
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
       font-family: var(--font-ui); font-weight: 700; font-size: 0.92rem;
-      padding: 13px 24px; border-radius: 100px;
-      transition: transform 0.2s var(--ease-out), box-shadow 0.2s var(--ease-out), border-color 0.2s var(--ease-out), color 0.2s var(--ease-out);
-      text-decoration: none;
+      padding: 10px 18px; border-radius: var(--radius-md);
+      text-decoration: none; border: 1px solid transparent; cursor: pointer;
+      transition: background 0.15s, border-color 0.15s, color 0.15s, transform 0.2s var(--ease-out);
     }
-    .btn-primary {
-      background: linear-gradient(135deg, var(--brand-blue), var(--brand-purple));
-      color: #fff;
-      box-shadow: 0 8px 24px -8px rgba(148, 55, 252, 0.65);
-    }
-    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 14px 32px -8px rgba(148, 55, 252, 0.8); }
-    .btn-ghost {
-      background: var(--bg-raised); border: 1px solid var(--border); color: var(--text-normal);
-    }
-    .btn-ghost:hover { border-color: var(--brand-bright); color: var(--text-bright); transform: translateY(-2px); }
-    .btn svg { width: 16px; height: 16px; }
+    .btn svg { width: 16px; height: 16px; flex: none; }
+    .btn-primary { background: var(--brand); color: #fff; }
+    .btn-primary:hover { background: var(--brand-hover); }
+    .btn-ghost { background: var(--bg-input); color: var(--text-normal); border-color: var(--border-strong); }
+    .btn-ghost:hover { color: var(--text-bright); border-color: var(--brand-text); }
+    .btn-lg { padding: 13px 22px; font-size: 0.98rem; }
+    .btn:focus-visible, .nav-links a:focus-visible { outline: 2px solid var(--brand-text); outline-offset: 2px; }
 
-    .legal {
-      position: fixed; bottom: 18px; left: 0; right: 0; text-align: center;
-      font-size: 0.82rem;
+    /* Hero */
+    .hero { position: relative; padding: 88px 0 0; text-align: center; }
+    .hero::before {
+      content: ''; position: absolute; inset: -120px 0 auto; height: 720px; z-index: -1; pointer-events: none;
+      background: radial-gradient(60% 50% at 50% 0%, rgba(65, 79, 212, 0.28), transparent 70%);
     }
-    .legal a { color: var(--text-muted); text-decoration: none; }
-    .legal a:hover { color: var(--text-bright); }
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 0.78rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
+      color: var(--brand-text); background: var(--brand-tint);
+      border: 1px solid rgba(65, 79, 212, 0.35);
+      padding: 5px 12px; border-radius: 100px; margin-bottom: 24px;
+    }
+    .eyebrow .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--success); }
+    h1 {
+      font-weight: 800; color: var(--text-bright);
+      font-size: clamp(2.3rem, 6vw, 4rem); line-height: 1.05; letter-spacing: -0.035em;
+      max-width: 820px; margin: 0 auto 20px;
+    }
+    h1 .accent { color: var(--brand-text); }
+    .lede { font-size: 1.12rem; color: var(--text-muted); max-width: 620px; margin: 0 auto 32px; }
+    .hero-actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-bottom: 56px; }
 
-    ::selection { background: var(--brand-purple); color: #fff; }
+    /* Screenshot frame, styled like the app's own floating surfaces */
+    .shot {
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-strong);
+      background: var(--bg-rail);
+      box-shadow: var(--shadow-shot);
+      overflow: hidden;
+    }
+    .shot img { width: 100%; }
+    .hero .shot { max-width: 1120px; margin: 0 auto; }
+
+    /* Sections */
+    section { padding: 112px 0 0; }
+    .section-head { max-width: 680px; margin: 0 auto 56px; text-align: center; }
+    .kicker {
+      display: block; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.08em;
+      text-transform: uppercase; color: var(--brand-text); margin-bottom: 12px;
+    }
+    h2 {
+      font-weight: 800; color: var(--text-bright);
+      font-size: clamp(1.8rem, 4vw, 2.6rem); line-height: 1.12; letter-spacing: -0.03em;
+      margin-bottom: 14px;
+    }
+    .section-head p { color: var(--text-muted); font-size: 1.05rem; }
+
+    /* Alternating feature rows */
+    .rows { display: flex; flex-direction: column; gap: 96px; }
+    .row { display: grid; grid-template-columns: 5fr 7fr; gap: 56px; align-items: center; }
+    .row.flip { grid-template-columns: 7fr 5fr; }
+    .row.flip .row-text { order: 2; }
+    .row-text h3 {
+      font-size: 1.6rem; font-weight: 800; color: var(--text-bright);
+      letter-spacing: -0.02em; line-height: 1.2; margin-bottom: 12px;
+    }
+    .row-text p { color: var(--text-muted); margin-bottom: 18px; }
+    .ticks { list-style: none; display: grid; gap: 10px; }
+    .ticks li { display: flex; gap: 10px; align-items: flex-start; color: var(--text-normal); font-size: 0.96rem; }
+    .ticks svg { width: 18px; height: 18px; flex: none; margin-top: 3px; color: var(--brand-text); }
+    .icon-chip {
+      display: inline-flex; width: 40px; height: 40px; border-radius: var(--radius-md);
+      align-items: center; justify-content: center; margin-bottom: 18px;
+      background: var(--brand-tint); color: var(--brand-text);
+    }
+    .icon-chip svg { width: 20px; height: 20px; }
+    @media (max-width: 900px) {
+      .row, .row.flip { grid-template-columns: 1fr; gap: 28px; }
+      .row.flip .row-text { order: 0; }
+      .rows { gap: 72px; }
+    }
+
+    /* Mobile showcase */
+    .devices {
+      display: grid; grid-template-columns: 1fr auto; gap: 56px; align-items: center;
+      background: var(--bg-sidebar); border: 1px solid var(--border);
+      border-radius: 24px; padding: 56px; overflow: hidden;
+    }
+    .phones { display: flex; gap: 20px; }
+    .phone {
+      width: 230px; border-radius: 34px; padding: 8px;
+      background: #050506; border: 1px solid var(--border-strong);
+      box-shadow: var(--shadow-shot);
+    }
+    .phone img { border-radius: 27px; }
+    .phone:nth-child(2) { transform: translateY(36px); }
+    .platforms { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 22px; }
+    .platform {
+      font-size: 0.85rem; font-weight: 700; color: var(--text-normal);
+      background: var(--bg-input); border: 1px solid var(--border);
+      padding: 6px 12px; border-radius: 100px;
+    }
+    @media (max-width: 960px) {
+      .devices { grid-template-columns: 1fr; padding: 36px 24px 64px; }
+      .phones { justify-content: center; }
+    }
+    @media (max-width: 560px) {
+      .phone { width: 46%; border-radius: 26px; padding: 6px; }
+      .phone img { border-radius: 21px; }
+      .phones { gap: 12px; }
+    }
+
+    /* Feature grid */
+    .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .card {
+      background: var(--bg-primary); border: 1px solid var(--border);
+      border-radius: var(--radius-lg); padding: 26px;
+      transition: border-color 0.2s, transform 0.2s var(--ease-out);
+    }
+    .card:hover { border-color: var(--border-strong); transform: translateY(-2px); }
+    .card .icon-chip { margin-bottom: 14px; }
+    .card h3 { font-size: 1.05rem; font-weight: 800; color: var(--text-bright); margin-bottom: 6px; }
+    .card p { font-size: 0.93rem; color: var(--text-muted); }
+    @media (max-width: 900px) { .grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 600px) { .grid { grid-template-columns: 1fr; } }
+
+    /* Self-host */
+    .split { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .panel {
+      background: var(--bg-primary); border: 1px solid var(--border);
+      border-radius: var(--radius-lg); padding: 36px;
+    }
+    .panel h3 { font-size: 1.35rem; font-weight: 800; color: var(--text-bright); letter-spacing: -0.02em; margin-bottom: 10px; }
+    .panel p { color: var(--text-muted); margin-bottom: 20px; }
+    .code {
+      font-family: var(--font-mono); font-size: 0.86rem; line-height: 1.7;
+      background: var(--code-bg); border: 1px solid var(--border);
+      border-radius: var(--radius-md); padding: 16px 18px; overflow-x: auto;
+      color: var(--text-normal); white-space: pre;
+    }
+    .code .c { color: #7f848e; }
+    .code .k { color: #c678dd; }
+    .code .s { color: #98c379; }
+    @media (max-width: 820px) { .split { grid-template-columns: 1fr; } .panel { padding: 26px; } }
+    /* Grid items default to min-width:auto, so the nowrap code block would push the page wide. */
+    .split > *, .row > *, .devices > *, .grid > * { min-width: 0; }
+
+    /* CTA + footer */
+    .cta {
+      margin-top: 112px; text-align: center;
+      background: radial-gradient(80% 120% at 50% 0%, rgba(65, 79, 212, 0.25), transparent 70%), var(--bg-sidebar);
+      border: 1px solid var(--border); border-radius: 24px; padding: 72px 24px;
+    }
+    .cta p { color: var(--text-muted); max-width: 520px; margin: 0 auto 28px; }
+    .cta .hero-actions { margin-bottom: 0; }
+    footer { margin-top: 80px; border-top: 1px solid var(--border); padding: 32px 0 40px; }
+    footer .wrap { display: flex; align-items: center; gap: 24px; flex-wrap: wrap; }
+    footer nav { display: flex; gap: 20px; flex-wrap: wrap; margin-left: auto; }
+    footer nav a { color: var(--text-muted); text-decoration: none; font-size: 0.9rem; font-weight: 600; }
+    footer nav a:hover { color: var(--text-bright); }
+    footer small { color: var(--text-muted); font-size: 0.85rem; width: 100%; }
+
+    /* Reveal on scroll; content stays visible without JS */
+    .js .reveal { opacity: 0; transform: translateY(16px); transition: opacity 0.6s var(--ease-out), transform 0.6s var(--ease-out); }
+    .js .reveal.in { opacity: 1; transform: none; }
+    @media (prefers-reduced-motion: reduce) { .js .reveal { opacity: 1; transform: none; transition: none; } }
   </style>
+  <script>document.documentElement.classList.add('js');</script>
 </head>
 <body>
-  <div class="mesh" aria-hidden="true"><span></span><span></span><span></span></div>
-
-  <div class="card">
-    <div class="brand">
-      <img src="assets/icon-192.png" alt="" width="30" height="30" />
-      hasht
+  <nav class="nav" aria-label="Main">
+    <div class="wrap">
+      <a href="/" class="brand"><img src="assets/icon-192.png" alt="" width="28" height="28" />hasht</a>
+      <div class="nav-links">
+        <a href="#features">Features</a>
+        <a href="#voice">Voice &amp; video</a>
+        <a href="#apps">Apps</a>
+        <a href="#self-host">Self-hosting</a>
+        <a href="https://chat.hasht.net" class="btn btn-primary">Log in</a>
+      </div>
     </div>
+  </nav>
 
-    <span class="kicker"><span class="dot"></span> Coming soon</span>
-
-    <h1>The chat server that stays <em>yours</em>.</h1>
-    <p class="lede">
-      We're building hasht in the open — a fast, self-hostable chat app with realtime messaging
-      and push notifications. The site's under construction; follow along on GitHub.
-    </p>
-
-    <div class="actions">
-      <a href="https://github.com/hasht-net" target="_blank" rel="noopener" class="btn btn-primary">
-        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.58 2 12.25c0 4.53 2.87 8.37 6.84 9.73.5.1.68-.22.68-.5 0-.24-.01-1.04-.01-1.88-2.78.62-3.37-1.22-3.37-1.22-.46-1.2-1.11-1.52-1.11-1.52-.91-.64.07-.63.07-.63 1 .07 1.53 1.05 1.53 1.05.9 1.58 2.34 1.12 2.91.86.09-.67.35-1.12.64-1.38-2.22-.26-4.56-1.14-4.56-5.06 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.31.1-2.73 0 0 .84-.28 2.75 1.05a9.3 9.3 0 0 1 5 0c1.91-1.33 2.75-1.05 2.75-1.05.55 1.42.2 2.47.1 2.73.64.72 1.03 1.63 1.03 2.75 0 3.93-2.35 4.79-4.58 5.05.36.32.68.94.68 1.9 0 1.37-.01 2.47-.01 2.81 0 .27.18.6.69.5A10.26 10.26 0 0 0 22 12.25C22 6.58 17.52 2 12 2Z"/></svg>
-        Follow on GitHub
-      </a>
+  <header class="hero">
+    <div class="wrap">
+      <span class="eyebrow"><span class="dot"></span>Hosted or self-hosted</span>
+      <h1>The chat server that stays <span class="accent">yours</span>.</h1>
+      <p class="lede">
+        Channels, threads, voice and video, search and push notifications, in one fast app.
+        Use it on Hasht Cloud, or run the same app on your own server.
+      </p>
+      <div class="hero-actions">
+        <a href="https://chat.hasht.net" class="btn btn-primary btn-lg">
+          Log in to hasht
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+        <a href="https://github.com/hasht-net" target="_blank" rel="noopener" class="btn btn-ghost btn-lg">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.58 2 12.25c0 4.53 2.87 8.37 6.84 9.73.5.1.68-.22.68-.5 0-.24-.01-1.04-.01-1.88-2.78.62-3.37-1.22-3.37-1.22-.46-1.2-1.11-1.52-1.11-1.52-.91-.64.07-.63.07-.63 1 .07 1.53 1.05 1.53 1.05.9 1.58 2.34 1.12 2.91.86.09-.67.35-1.12.64-1.38-2.22-.26-4.56-1.14-4.56-5.06 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.31.1-2.73 0 0 .84-.28 2.75 1.05a9.3 9.3 0 0 1 5 0c1.91-1.33 2.75-1.05 2.75-1.05.55 1.42.2 2.47.1 2.73.64.72 1.03 1.63 1.03 2.75 0 3.93-2.35 4.79-4.58 5.05.36.32.68.94.68 1.9 0 1.37-.01 2.47-.01 2.81 0 .27.18.6.69.5A10.26 10.26 0 0 0 22 12.25C22 6.58 17.52 2 12 2Z"/></svg>
+          Follow on GitHub
+        </a>
+      </div>
+      <div class="shot">
+        <img src="assets/screenshots/hero.jpg" width="2400" height="1500"
+             alt="The hasht app: a team server's #general channel with reactions, a thread, and the member list showing who's online" />
+      </div>
     </div>
-  </div>
+  </header>
 
-  <nav class="legal"><a href="/privacy">Privacy Policy</a></nav>
+  <main>
+    <section id="features">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <span class="kicker">Features</span>
+          <h2>Everything your team or community talks about, in one place.</h2>
+          <p>Organized channels, real conversations and the tools to keep them tidy. Every screenshot on this page is the real app.</p>
+        </div>
+
+        <div class="rows">
+          <div class="row reveal">
+            <div class="row-text">
+              <span class="icon-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.5 8.6 8.6 0 0 1-3.8-.9L3 21l1.9-5.2A8.4 8.4 0 0 1 4 11.5 8.5 8.5 0 0 1 12.5 3 8.5 8.5 0 0 1 21 11.5Z"/><path d="M8 10h8M8 14h5"/></svg></span>
+              <h3>Threads keep busy channels readable</h3>
+              <p>Reply in a thread from any message and the side conversation stays out of the main channel. Each thread has its own notifications, so you only follow the ones you care about.</p>
+              <ul class="ticks">
+                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5L20 7"/></svg>Markdown and code blocks with syntax highlighting</li>
+                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5L20 7"/></svg>Reactions, pins, mentions and a recent threads menu</li>
+                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5L20 7"/></svg>Sections to group channels the way your team works</li>
+              </ul>
+            </div>
+            <div class="shot"><img src="assets/screenshots/threads.jpg" width="2000" height="1250" loading="lazy" alt="An #engineering channel with a code snippet and a thread panel open on the right" /></div>
+          </div>
+
+          <div class="row flip reveal" id="voice">
+            <div class="row-text">
+              <span class="icon-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="14" height="12" rx="2"/><path d="m16 10 6-3v10l-6-3"/></svg></span>
+              <h3>Voice and video, built into every server</h3>
+              <p>Drop into a voice channel to talk, turn your camera on, or share your screen with its audio. Everyone in the server can see who's in which call.</p>
+              <ul class="ticks">
+                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5L20 7"/></svg>Calls go through a relay, so participants never see each other's IP address</li>
+                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5L20 7"/></svg>Noise suppression, speaking indicators and a full-screen stage</li>
+                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5L20 7"/></svg>A soundboard for the moments that need an airhorn</li>
+              </ul>
+            </div>
+            <div class="shot"><img src="assets/screenshots/voice.jpg" width="2000" height="1250" loading="lazy" alt="A Standup voice channel with a shared roadmap screen, two cameras on and a speaking indicator" /></div>
+          </div>
+
+          <div class="row reveal">
+            <div class="row-text">
+              <span class="icon-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg></span>
+              <h3>Search that finds the message, not just the channel</h3>
+              <p>Full-text search across a whole server and your DMs. Narrow it down by person, channel or date, and jump straight to the message in context.</p>
+              <ul class="ticks">
+                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5L20 7"/></svg><span><code>from:</code>, <code>in:</code>, <code>before:</code> and <code>after:</code> filters</span></li>
+                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5L20 7"/></svg>Matches highlighted across every channel at once</li>
+              </ul>
+            </div>
+            <div class="shot"><img src="assets/screenshots/search.jpg" width="2000" height="1250" loading="lazy" alt="Search results for 'relay' highlighted across four channels" /></div>
+          </div>
+
+          <div class="row flip reveal">
+            <div class="row-text">
+              <span class="icon-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-5-5L5 21"/></svg></span>
+              <h3>Share files, images and links</h3>
+              <p>Drag and drop or paste to upload. Images show inline, audio and video play right in the chat, and link previews are fetched by the server so a stranger's link never learns your IP.</p>
+              <ul class="ticks">
+                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5L20 7"/></svg>Custom server emoji and GIF search</li>
+                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5L20 7"/></svg>Spoilers, slash commands and long-press reactions on mobile</li>
+              </ul>
+            </div>
+            <div class="shot"><img src="assets/screenshots/media.jpg" width="2000" height="1250" loading="lazy" alt="A #design channel with a shared color palette image, reactions and a thread" /></div>
+          </div>
+
+          <div class="row reveal">
+            <div class="row-text">
+              <span class="icon-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/></svg></span>
+              <h3>Roles, permissions and moderation</h3>
+              <p>Give people exactly the access they need with a role hierarchy and per-channel overrides. Moderators can mute, kick and ban, and every action lands in the server's audit log.</p>
+              <ul class="ticks">
+                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5L20 7"/></svg>Colored roles and per-server display names</li>
+                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5L20 7"/></svg>Invite links with expiry and use limits</li>
+              </ul>
+            </div>
+            <div class="shot"><img src="assets/screenshots/roles.jpg" width="2000" height="1250" loading="lazy" alt="Server settings open on the Roles tab, editing a Moderator role's permissions" /></div>
+          </div>
+
+          <div class="row flip reveal">
+            <div class="row-text">
+              <span class="icon-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2 2M9 2h6"/></svg></span>
+              <h3>Disappearing messages, down to none at all</h3>
+              <p>Set how long a channel or DM keeps its history, from seconds to years. Or pick live-only mode, where nothing is saved in the first place.</p>
+              <ul class="ticks">
+                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5L20 7"/></svg>Per channel and per DM, visible to everyone in the conversation</li>
+                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5L20 7"/></svg>Group DMs with typing and online status</li>
+              </ul>
+            </div>
+            <div class="shot"><img src="assets/screenshots/dm.jpg" width="2000" height="1250" loading="lazy" alt="A direct message conversation set to disappear after one day" /></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="apps">
+      <div class="wrap">
+        <div class="devices reveal">
+          <div>
+            <span class="kicker">Apps</span>
+            <h2>On every screen you use.</h2>
+            <p style="color: var(--text-muted); margin-bottom: 8px;">
+              Install hasht on your phone or desktop, or just open it in a browser. The apps connect to
+              Hasht Cloud or any self-hosted server, and you can add more than one.
+            </p>
+            <ul class="ticks" style="margin-top: 18px;">
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5L20 7"/></svg>Push notifications with quiet hours and snooze</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5L20 7"/></svg>Share photos and files straight from your phone</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5L20 7"/></svg>Desktop tray with unread badges</li>
+            </ul>
+            <div class="platforms">
+              <span class="platform">iOS</span><span class="platform">Android</span><span class="platform">macOS</span>
+              <span class="platform">Windows</span><span class="platform">Linux</span><span class="platform">Web</span>
+            </div>
+          </div>
+          <div class="phones">
+            <div class="phone"><img src="assets/screenshots/mobile-chat.jpg" width="954" height="1600" loading="lazy" alt="hasht on a phone showing the #general channel" /></div>
+            <div class="phone"><img src="assets/screenshots/mobile-media.jpg" width="954" height="1600" loading="lazy" alt="hasht on a phone showing an image shared in #design" /></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap">
+        <div class="section-head reveal">
+          <span class="kicker">And more</span>
+          <h2>The details that make it feel finished.</h2>
+        </div>
+        <div class="grid">
+          <div class="card reveal">
+            <span class="icon-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg></span>
+            <h3>Notifications you control</h3>
+            <p>Per-channel levels, quiet hours, snooze, and an option to hide message content on your lock screen.</p>
+          </div>
+          <div class="card reveal">
+            <span class="icon-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span>
+            <h3>Scheduled messages and drafts</h3>
+            <p>Write now, send later. Drafts follow you between devices so you can finish a thought anywhere.</p>
+          </div>
+          <div class="card reveal">
+            <span class="icon-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></span>
+            <h3>Inbox for unreads</h3>
+            <p>One feed with every unread message, mention and thread reply across all your servers and DMs.</p>
+          </div>
+          <div class="card reveal">
+            <span class="icon-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8V4H8"/><rect x="4" y="8" width="16" height="12" rx="2"/><path d="M2 14h2M20 14h2M9 13v2M15 13v2"/></svg></span>
+            <h3>AI agents with MCP tools</h3>
+            <p>Add agents that answer in channels and threads, backed by OpenAI or a model you host, with tools from MCP servers you connect.</p>
+          </div>
+          <div class="card reveal">
+            <span class="icon-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.5.5l3-3a5 5 0 0 0-7-7l-1.7 1.7"/><path d="M14 11a5 5 0 0 0-7.5-.5l-3 3a5 5 0 0 0 7 7l1.7-1.7"/></svg></span>
+            <h3>Webhooks and API tokens</h3>
+            <p>Pipe in alerts and GitHub events with incoming webhooks, or script anything with personal API tokens.</p>
+          </div>
+          <div class="card reveal">
+            <span class="icon-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="15" r="4"/><path d="m10.8 12.2 9.2-9.2M17 6l3 3M14 9l2 2"/></svg></span>
+            <h3>Passkeys and session control</h3>
+            <p>Sign in with a passkey, see every active session, and sign one out to disconnect it instantly.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="self-host">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <span class="kicker">Your data</span>
+          <h2>Run it on our servers or yours.</h2>
+          <p>Hasht Cloud is the easy way in. If you'd rather keep everything on your own hardware, the same app runs anywhere Docker does.</p>
+        </div>
+        <div class="split">
+          <div class="panel reveal">
+            <h3>Self-host in one command</h3>
+            <p>A single binary serves the app and API, backed by PostgreSQL. Migrations run on startup, and a TURN relay for calls is included.</p>
+            <div class="code"><span class="c"># one stack, one command</span>
+<span class="k">docker compose</span> -f docker-compose.prod.yml <span class="k">up</span> -d</div>
+          </div>
+          <div class="panel reveal">
+            <h3>No ads, no tracking, no training</h3>
+            <p>We don't sell your data, share it for advertising, or train AI models on your messages. The apps contain no ad SDKs or third-party analytics.</p>
+            <a href="/privacy" class="btn btn-ghost">
+              Read the privacy policy
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <div class="cta reveal">
+          <h2>Ready when you are.</h2>
+          <p>Already have an account on Hasht Cloud? Pick up where you left off.</p>
+          <div class="hero-actions">
+            <a href="https://chat.hasht.net" class="btn btn-primary btn-lg">Log in to hasht</a>
+            <a href="https://github.com/hasht-net" target="_blank" rel="noopener" class="btn btn-ghost btn-lg">Follow on GitHub</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <a href="/" class="brand"><img src="assets/icon-192.png" alt="" width="28" height="28" />hasht</a>
+      <nav aria-label="Footer">
+        <a href="https://chat.hasht.net">Log in</a>
+        <a href="https://github.com/hasht-net" target="_blank" rel="noopener">GitHub</a>
+        <a href="/privacy">Privacy</a>
+        <a href="/terms">Terms</a>
+      </nav>
+      <small>© 2026 hasht. Screenshots show staged sample data.</small>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      var els = document.querySelectorAll('.reveal');
+      if (!('IntersectionObserver' in window)) { els.forEach(function (el) { el.classList.add('in'); }); return; }
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+      }, { rootMargin: '0px 0px -8% 0px' });
+      els.forEach(function (el) { io.observe(el); });
+    })();
+  </script>
 </body>
 </html>
