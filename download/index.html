@@ -230,6 +230,40 @@
     .card .more { margin-top: auto; font-size: 0.86rem; font-weight: 600; color: var(--text-muted); text-decoration: none; }
     .card .more:hover { color: var(--text-bright); }
 
+    .card p a.inline { color: var(--brand-text); font-weight: 600; text-decoration: none; }
+    .card p a.inline:hover { text-decoration: underline; }
+
+    /* Store betas */
+    .beta { padding-top: 96px; scroll-margin-top: 61px; }
+    .beta-head { max-width: 620px; margin: 0 auto 32px; text-align: center; }
+    .beta-head h2 { margin-bottom: 10px; }
+    .beta-head p { color: var(--text-muted); }
+    .kicker {
+      display: block; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.08em;
+      text-transform: uppercase; color: var(--brand-text); margin-bottom: 12px;
+    }
+    .beta-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .beta-grid > * { min-width: 0; }
+    @media (max-width: 760px) { .beta-grid { grid-template-columns: 1fr; } }
+    .panel {
+      display: flex; flex-direction: column;
+      background: radial-gradient(90% 120% at 0% 0%, rgba(10, 111, 224, 0.12), transparent 60%), var(--bg-primary);
+      border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 28px;
+    }
+    .panel h3 { font-size: 1.15rem; font-weight: 800; color: var(--text-bright); }
+    .panel .card-head { margin-bottom: 18px; }
+    .steps { list-style: none; counter-reset: step; display: grid; gap: 12px; margin-bottom: 22px; }
+    .steps li { counter-increment: step; display: flex; gap: 12px; color: var(--text-normal); font-size: 0.95rem; }
+    .steps li::before {
+      content: counter(step); flex: none; width: 24px; height: 24px; border-radius: 50%;
+      display: inline-flex; align-items: center; justify-content: center; margin-top: 1px;
+      font-size: 0.78rem; font-weight: 800; color: #fff; background: var(--brand-gradient);
+    }
+    .steps strong { color: var(--text-bright); }
+    .panel-actions { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 16px; }
+    .panel .more { margin-top: auto; font-size: 0.86rem; font-weight: 600; color: var(--text-muted); text-decoration: none; }
+    .panel .more:hover { color: var(--text-bright); }
+
     .note { margin: 40px auto 0; max-width: 640px; text-align: center; color: var(--text-muted); font-size: 0.9rem; }
     .note a { color: var(--brand-text); }
 
@@ -317,7 +351,7 @@
           </div>
           <div class="version" data-version="android"></div>
           <ul class="files" data-files="android"></ul>
-          <p>Open the APK on your phone to install it. Android may ask you to allow installs from your browser first.</p>
+          <p>Open the APK on your phone to install it. Android may ask you to allow installs from your browser first. Prefer automatic updates? <a href="#beta" class="inline">Join the Google Play beta</a>.</p>
           <a class="more" href="https://github.com/hasht-net/hasht-app/releases/latest" target="_blank" rel="noopener">Release notes on GitHub →</a>
         </div>
 
@@ -326,9 +360,10 @@
             <span class="icon-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="2" width="12" height="20" rx="3"/><path d="M10 5h4"/></svg></span>
             <h3>iPhone and iPad</h3><span class="badge">Your device</span>
           </div>
-          <div class="version">Coming to the App Store</div>
-          <p>Until then, open hasht in Safari and choose Share, then Add to Home Screen to install it as an app with notifications.</p>
+          <div class="version">Beta on TestFlight</div>
+          <p>The App Store release is coming. Until then, join the TestFlight beta, or open hasht in Safari and choose Share, then Add to Home Screen.</p>
           <ul class="files">
+            <li><a href="#beta">Join the TestFlight beta</a></li>
             <li><a href="https://chat.hasht.net">Open in Safari</a></li>
           </ul>
         </div>
@@ -345,6 +380,51 @@
           </ul>
         </div>
       </div>
+
+      <section class="beta" id="beta">
+        <div class="beta-head reveal">
+          <span class="kicker">Mobile beta</span>
+          <h2>Get the app from the store.</h2>
+          <p>Try new builds before they ship and get updates automatically. Ask us for a spot and we'll add you.</p>
+        </div>
+        <div class="beta-grid">
+          <div class="panel reveal" style="--i: 0">
+            <div class="card-head">
+              <span class="icon-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="2" width="12" height="20" rx="3"/><path d="M10 5h4"/></svg></span>
+              <h3>TestFlight for iPhone and iPad</h3>
+            </div>
+            <ol class="steps">
+              <li><span>Email us the Apple ID you use on your iPhone or iPad.</span></li>
+              <li><span>Open the TestFlight invite we send you and install hasht.</span></li>
+            </ol>
+            <div class="panel-actions">
+              <a class="btn btn-primary" href="mailto:support@hasht.net?subject=hasht%20TestFlight%20beta%20request&amp;body=Hi%20hasht%20team%2C%0A%0AI%27d%20like%20to%20join%20the%20iOS%20TestFlight%20beta.%0A%0AApple%20ID%20email%3A%0ADevice%20(iPhone%20or%20iPad)%3A%0A">
+                Request TestFlight access
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+              </a>
+            </div>
+          </div>
+
+          <div class="panel reveal" style="--i: 1">
+            <div class="card-head">
+              <span class="icon-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="2" width="12" height="20" rx="2.5"/><path d="M11 18h2"/></svg></span>
+              <h3>Google Play for Android</h3>
+            </div>
+            <ol class="steps">
+              <li><span>Ask to join the <strong>hasht-insiders</strong> Google Group with the Google account on your phone, or email us that address.</span></li>
+              <li><span>Once you're approved, opt in on Google Play and install hasht.</span></li>
+            </ol>
+            <div class="panel-actions">
+              <a class="btn btn-primary" href="https://groups.google.com/g/hasht-insiders" target="_blank" rel="noopener">
+                Request to join hasht-insiders
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+              </a>
+              <a class="btn btn-ghost" href="mailto:support@hasht.net?subject=hasht%20Google%20Play%20beta%20request&amp;body=Hi%20hasht%20team%2C%0A%0AI%27d%20like%20to%20join%20the%20Android%20beta%20on%20Google%20Play.%0A%0AGoogle%20account%20email%3A%0A">Email support</a>
+            </div>
+            <a class="more" href="https://play.google.com/apps/testing/net.hasht.app" target="_blank" rel="noopener">Already approved? Opt in on Google Play →</a>
+          </div>
+        </div>
+      </section>
 
       <p class="note">hasht is in private beta. The apps are free, and you'll need an invite to a Hasht Cloud server or your own server address to sign in. Source and older versions are on <a href="https://github.com/hasht-net" target="_blank" rel="noopener">GitHub</a>.</p>
     </div>
@@ -493,10 +573,15 @@
         var meta = document.getElementById('hero-meta');
         var lede = document.getElementById('hero-lede');
         if (platform === 'ios') {
-          btn.href = 'https://chat.hasht.net';
-          label.textContent = 'Open hasht in Safari';
+          btn.href = '#beta';
+          label.textContent = 'Join the TestFlight beta';
           btn.querySelector('svg path').setAttribute('d', 'M5 12h14M13 6l6 6-6 6');
-          lede.textContent = 'hasht for iPhone and iPad is coming to the App Store. Until then, open it in Safari and add it to your Home Screen.';
+          lede.textContent = 'hasht for iPhone and iPad is in beta on TestFlight while the App Store release gets ready.';
+          meta.innerHTML = '';
+          var safari = document.createElement('a');
+          safari.href = 'https://chat.hasht.net';
+          safari.textContent = 'Or open hasht in Safari';
+          meta.appendChild(safari);
           return;
         }
         if (!primary) {
@@ -522,6 +607,12 @@
       current.classList.add('current');
       current.parentNode.insertBefore(current, current.parentNode.firstChild);
       document.querySelectorAll('.grid .card').forEach(function (c, i) { c.style.setProperty('--i', i); });
+      if (platform === 'android') {
+        var panels = document.querySelectorAll('.beta-grid .panel');
+        panels[0].parentNode.insertBefore(panels[1], panels[0]);
+        panels[1].style.setProperty('--i', 0);
+        panels[0].style.setProperty('--i', 1);
+      }
 
       Promise.all([
         fetchLatest(REPOS.desktop),
@@ -546,7 +637,6 @@
 
     (function () {
       var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      var target = document.getElementById('platforms');
       var heroInner = document.querySelector('.hero-inner');
       var cue = document.querySelector('.scroll-cue');
 
@@ -578,7 +668,7 @@
 
       function easeInOutQuint(t) { return t < 0.5 ? 16 * t * t * t * t * t : 1 - Math.pow(-2 * t + 2, 5) / 2; }
 
-      function glideTo(el) {
+      function glideTo(el, hash) {
         var start = window.scrollY;
         var end = el.getBoundingClientRect().top + start - 61;
         var dist = end - start;
@@ -598,17 +688,18 @@
           else {
             window.removeEventListener('wheel', cancel);
             window.removeEventListener('touchstart', cancel);
-            history.replaceState(null, '', '#platforms');
+            history.replaceState(null, '', hash);
           }
         }
         requestAnimationFrame(step);
       }
 
       document.addEventListener('click', function (e) {
-        var a = e.target.closest('a[href="#platforms"]');
-        if (!a) return;
+        var a = e.target.closest('a[href^="#"]');
+        var el = a && document.getElementById(a.getAttribute('href').slice(1));
+        if (!el) return;
         e.preventDefault();
-        glideTo(target);
+        glideTo(el, a.getAttribute('href'));
       });
     })();
   </script>
