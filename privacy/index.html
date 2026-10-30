@@ -105,7 +105,7 @@
     </a>
 
     <h1>Privacy Policy</h1>
-    <p class="updated">Effective October 17, 2026</p>
+    <p class="updated">Effective October 29, 2026</p>
 
     <div class="summary">
       <h2>The short version</h2>
@@ -114,6 +114,7 @@
         <li>We don't sell your data, share it for advertising, or train AI models on your messages.</li>
         <li>The hasht apps contain no ads, ad SDKs or third-party analytics.</li>
         <li>If you connect an app to a <strong>self-hosted</strong> server, that server's operator controls your data there, not us.</li>
+        <li>We ask for your birthday to check you're old enough to use hasht. It stays hidden from other people unless you choose to show it.</li>
         <li>You can export or delete your data, and delete your account, at any time.</li>
       </ul>
     </div>
@@ -131,7 +132,7 @@
       <li><a href="#security">Security</a></li>
       <li><a href="#rights">Your choices and rights</a></li>
       <li><a href="#delete-account">Deleting your account</a></li>
-      <li><a href="#children">Children</a></li>
+      <li><a href="#children">Children and age checks</a></li>
       <li><a href="#transfers">International transfers</a></li>
       <li><a href="#changes">Changes to this policy</a></li>
       <li><a href="#contact">Contact us</a></li>
@@ -180,10 +181,17 @@
 
     <h3>Account information</h3>
     <p>
-      When you create a Hasht Cloud account we collect your username, email address and password
-      (stored only as a salted hash). You may optionally add a display name, profile picture, status
-      and other profile details. Profile information is visible to other people on the servers and
-      in the channels you join.
+      When you create a Hasht Cloud account we collect your username, email address, birthday and
+      password (stored only as a salted hash). You may optionally add a display name, profile picture,
+      banner, bio, status and other profile details. Profile information is visible to other people on
+      the servers and in the channels you join.
+    </p>
+    <p>
+      Your email address is never shown to other users. Your birthday is hidden from other users by
+      default; you can choose to show the month and day, or the full date, on your profile, and change
+      that at any time in settings. Accounts created before we asked for an email address or birthday
+      are asked for them the next time they sign in. See <a href="#children">Children and age checks</a>
+      for how we use your birthday.
     </p>
 
     <h3>Content you create</h3>
@@ -285,6 +293,7 @@
     <ul>
       <li><strong>To provide the service</strong> — delivering messages, files and calls, syncing across your devices, and sending notifications.</li>
       <li><strong>To keep it safe</strong> — preventing spam, abuse and fraud, enforcing our terms, and responding to reports.</li>
+      <li><strong>To check your age</strong> — making sure everyone who creates or keeps an account meets the minimum age (see <a href="#children">Children and age checks</a>).</li>
       <li><strong>To keep it working</strong> — diagnosing errors, monitoring performance and capacity, and fixing bugs.</li>
       <li><strong>To communicate with you</strong> — account, security, billing and important service notices. We'll send product news only if you opt in, and you can opt out at any time.</li>
       <li><strong>To meet legal obligations</strong> — tax and accounting records, and lawful requests.</li>
@@ -328,6 +337,7 @@
       <li><strong>Server and security logs</strong> are kept for up to 90 days.</li>
       <li><strong>Diagnostic reports</strong> are kept for up to 90 days.</li>
       <li><strong>Billing records</strong> are kept for as long as tax and accounting law requires.</li>
+      <li><strong>Your birthday</strong> is kept with your account until you delete it. If you're too young to sign up, we don't create an account or keep the birthday you entered.</li>
     </ul>
 
     <h2 id="security">9. Security</h2>
@@ -384,13 +394,28 @@
       that server's operator.
     </p>
 
-    <h2 id="children">12. Children</h2>
+    <h2 id="children">12. Children and age checks</h2>
     <p>
       Hasht Cloud is not directed at children under 13, and you must be at least 13 years old (or the
       minimum age of digital consent in your country, if higher) to create an account. We don't knowingly
-      collect personal information from children under that age. If you believe a child has given us
-      personal information, contact <a href="mailto:privacy@hasht.net">privacy@hasht.net</a> and we will
-      delete it.
+      collect personal information from children under that age.
+    </p>
+    <p>
+      To check this, we ask for your date of birth when you sign up, and ask existing accounts that don't
+      have one on file the next time they sign in. We use your birthday to work out your age, and we
+      compare it against the latest time zone on Earth, so you can't sign up before your 13th birthday has
+      begun everywhere. We don't ask for ID, photos or face scans.
+    </p>
+    <ul>
+      <li><strong>At sign-up</strong>, if your birthday shows you're under the minimum age, we don't create the account and we don't keep the birthday you entered.</li>
+      <li><strong>On an existing account</strong>, if the birthday entered shows the account holder is under the minimum age, we lock the account immediately, sign it out on every device, and don't save the birthday. We then delete the account's personal information as described in <a href="#delete-account">Deleting your account</a>.</li>
+    </ul>
+    <p>
+      If you believe a child has given us personal information, contact
+      <a href="mailto:privacy@hasht.net">privacy@hasht.net</a> and we will delete it.
+    </p>
+    <p>
+      Servers that someone else runs set their own age requirements; ask that server's operator.
     </p>
 
     <h2 id="transfers">13. International transfers</h2>
