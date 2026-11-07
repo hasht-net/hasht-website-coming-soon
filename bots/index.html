@@ -115,9 +115,12 @@
     </div>
 
     <h2>Identity</h2>
-    <p>The embed preview fetcher identifies itself with this HTTP user agent:</p>
+    <p>The embed preview fetcher uses this default HTTP user agent:</p>
     <p><code>Hashtbot/1.0 (+https://hasht.net/bots)</code></p>
-    <p>The bot name is <code>Hashtbot</code>. Older versions may use a different user agent.</p>
+    <p>The bot name is <code>Hashtbot</code>. Requests to <code>facebed.com</code> and
+    <code>www.facebed.com</code> retain a <code>Discordbot/2.0</code> compatibility user agent
+    because that service requires it for video metadata. Redirects to other hosts use the default
+    Hashtbot identity. Older versions may use a different default user agent.</p>
 
     <h2>What it fetches</h2>
     <ul>
