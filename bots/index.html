@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hashtbot — hasht</title>
+  <link rel="preload" href="/assets/fonts/manrope-latin.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="stylesheet" href="/assets/fonts.css" />
+  <script src="/assets/analytics.js" defer></script>
+  <meta name="description" content="How Hashtbot fetches link previews and media for hasht, and how website operators can identify and contact us." />
+  <link rel="canonical" href="https://hasht.net/bots" />
+  <link rel="icon" type="image/x-icon" href="/assets/favicon.ico" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/icon-32.png" />
+  <link rel="icon" type="image/png" sizes="192x192" href="/assets/icon-192.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png" />
+  <style>
+
+    :root {
+      --font-display: 'Manrope', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      --font-ui: 'Manrope', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      --brand-blue: #0a6fe0;
+      --brand-purple: #6d35e8;
+      --brand-bright: #5db4ff;
+      --bg-void: #141518;
+      --bg-raised: #1c1d21;
+      --border: rgba(255, 255, 255, 0.08);
+      --text-bright: #f2f3f5;
+      --text-normal: #dbdee1;
+      --text-muted: #a2a8b1;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: var(--bg-void);
+      color: var(--text-normal);
+      font-family: var(--font-ui);
+      line-height: 1.7;
+      padding: 48px 16px 80px;
+    }
+
+    .mesh { position: fixed; inset: 0; z-index: -1; overflow: hidden; pointer-events: none; }
+    .mesh span {
+      position: absolute; border-radius: 50%; filter: blur(90px); opacity: 0.18;
+      width: 640px; height: 640px; top: -260px; left: -200px;
+      background: radial-gradient(circle at 30% 30%, var(--brand-blue), transparent 70%);
+    }
+
+    main { max-width: 720px; margin: 0 auto; }
+
+    .brand {
+      display: inline-flex; align-items: center; gap: 10px; margin-bottom: 40px;
+      font-family: var(--font-display); font-weight: 600; font-size: 1.15rem;
+      color: var(--text-bright); text-decoration: none; letter-spacing: -0.01em;
+    }
+    .brand img { width: 39px; height: 34px; }
+
+    h1 {
+      font-family: var(--font-display); font-weight: 600;
+      font-size: clamp(2rem, 5vw, 2.8rem); line-height: 1.1; letter-spacing: -0.02em;
+      color: var(--text-bright); margin-bottom: 10px;
+    }
+    .updated { color: var(--text-muted); font-size: 0.92rem; margin-bottom: 32px; }
+
+    h2 {
+      font-family: var(--font-display); font-weight: 600; font-size: 1.45rem;
+      color: var(--text-bright); letter-spacing: -0.01em;
+      margin: 48px 0 12px; scroll-margin-top: 24px;
+    }
+    h3 { color: var(--text-bright); font-size: 1rem; font-weight: 700; margin: 24px 0 6px; }
+    p, ul { margin-bottom: 14px; }
+    ul { padding-left: 22px; }
+    li { margin-bottom: 6px; }
+    strong { color: var(--text-bright); font-weight: 700; }
+    a { color: var(--brand-bright); text-underline-offset: 3px; }
+    a:hover { color: var(--text-bright); }
+
+    .summary {
+      background: var(--bg-raised); border: 1px solid var(--border);
+      border-radius: 16px; padding: 22px 24px; margin-bottom: 8px;
+    }
+    .summary h2 { margin-top: 0; font-size: 1.15rem; }
+    .summary ul { margin-bottom: 0; }
+
+    code { overflow-wrap: anywhere; }
+
+    .toc { columns: 2; column-gap: 32px; padding-left: 20px; font-size: 0.95rem; }
+    @media (max-width: 560px) { .toc { columns: 1; } }
+
+    .table-wrap { overflow-x: auto; margin-bottom: 14px; }
+    table { width: 100%; border-collapse: collapse; font-size: 0.93rem; }
+    th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid var(--border); }
+    th { color: var(--text-bright); font-weight: 700; }
+
+    footer { margin-top: 64px; padding-top: 24px; border-top: 1px solid var(--border); color: var(--text-muted); font-size: 0.9rem; }
+
+    ::selection { background: var(--brand-blue); color: #fff; }
+  </style>
+</head>
+<body>
+  <div class="mesh" aria-hidden="true"><span></span></div>
+  <main>
+    <a href="/" class="brand">
+      <img src="/assets/logo-mark.png" alt="" width="39" height="34" />
+      hasht
+    </a>
+    <h1>Hashtbot</h1>
+    <p class="updated">Link previews and media for hasht · Updated November 7, 2026</p>
+
+    <div class="summary">
+      <h2>Why you may see a request</h2>
+      <p>Hashtbot fetches pages and media for links shared in hasht chats. It reads page metadata to
+      build previews and proxies images and videos so viewers do not have to connect directly to
+      the linked website for those previews.</p>
+    </div>
+
+    <h2>Identity</h2>
+    <p>The embed preview fetcher identifies itself with this HTTP user agent:</p>
+    <p><code>Hashtbot/1.0 (+https://hasht.net/bots)</code></p>
+    <p>The bot name is <code>Hashtbot</code>. Older versions may use a different user agent.</p>
+
+    <h2>What it fetches</h2>
+    <ul>
+      <li>Pages linked in chats, including redirects, to read titles, descriptions, and preview metadata.</li>
+      <li>Associated metadata endpoints used to build previews.</li>
+      <li>Image headers to determine dimensions, and images or videos displayed through the media proxy.
+      Video playback may make range requests.</li>
+    </ul>
+    <p>Requests support previews and media shown in chats, including when people view shared links
+    again. This fetcher does not crawl links recursively or build a web search index. It is separate
+    from hasht's AI-agent web fetching.</p>
+    <p>Preview results are cached to reduce repeated fetching. Requests come from the chat server,
+    rather than forwarding the viewer's IP address to the destination website.</p>
+
+    <h2>Who operates it</h2>
+    <p>Hasht LLC operates Hasht Cloud. Independent operators can also run the hasht chat software
+    on their own servers. Those servers may use the same Hashtbot user agent.</p>
+    <p>A user-agent string alone does not prove that a request came from Hasht LLC.
+    This page does not assert verified-bot status with any provider. We do not currently publish
+    an outbound IP list or signing-key directory here.</p>
+
+    <h2>For website operators</h2>
+    <p>If you need help identifying requests, reporting abuse, or requesting a change to access
+    from our operated service, email <a href="mailto:abuse@hasht.net">abuse@hasht.net</a>.
+    Include the request time and time zone, source IP address, requested URL, and user agent if
+    available. Please remove sensitive URL parameters before sending.</p>
+    <p>For independent self-hosted servers, their operator controls outbound traffic.
+    The shared user agent does not identify which organization operates a particular server.</p>
+
+    <footer>
+      © 2026 Hasht LLC · <a href="/">Home</a> · <a href="/privacy">Privacy</a> · <a href="/terms">Terms</a>
+    </footer>
+  </main>
+</body>
+</html>
